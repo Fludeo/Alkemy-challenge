@@ -1,0 +1,22 @@
+{
+  "name": "alkemy-fullstack-challenge",
+  "version": "1.0.0",
+  "description": "Fullstack js challenge",
+  "main": "App.js",
+  "dependencies": {
+    "better-sqlite3": "^7.5.1",
+    "dotenv": "^16.0.0",
+    "eslint": "^8.14.0",
+    "eslint-plugin-jsdoc": "^39.2.9",
+    "express": "^4.18.0",
+    "jsdoc": "^3.6.10",
+    "rsdi": "^2.1.1",
+    "sequelize": "^6.19.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
