@@ -9,8 +9,10 @@
     "eslint-plugin-jsdoc": "^39.2.9",
     "express": "^4.18.0",
     "jsdoc": "^3.6.10",
+    "jsonwebtoken": "^8.5.1",
     "rsdi": "^2.1.1",
-    "sequelize": "^6.19.0"
+    "sequelize": "^6.19.0",
+    "sqlite3": "^5.0.5"
   },
   "devDependencies": {
     "eslint": "^8.14.0"

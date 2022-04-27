@@ -26,6 +26,5 @@ function InitDefaultModule(app,container){
 
 module.exports = {
     InitDefaultModule,
-    DefaultController,
-
+    DefaultController
 }

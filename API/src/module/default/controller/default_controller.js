@@ -2,10 +2,15 @@
 
 
 
-module.export =  class DefaultController {
-   
-    constructor(accountingService){
-        this.accountingService = accountingService;
+module.exports =  class DefaultController {
+   /**
+    * 
+    * @param {import('../../record/service/record_service')} recordService 
+    */
+
+
+    constructor(recordService){
+        this.recordService = recordService;
         this.BASE_ROUTE = '/';
     }
 
@@ -24,7 +29,7 @@ module.export =  class DefaultController {
  */
 
     async home(req,res){
-        console.log(this)
+        
         res.sendStatus(200)
     }
 
