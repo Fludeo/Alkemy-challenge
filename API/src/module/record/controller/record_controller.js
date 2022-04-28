@@ -1,5 +1,6 @@
-const RecordDto =  require('../dto/RecordDto');
-const ValidationError = require('../error/validation_error');
+
+const RecordDto =  require('../dto/record_dto');
+const RecordValidationError = require('../error/record_validation_error');
 
 module.exports =  class RecordController {
    
@@ -39,10 +40,9 @@ module.exports =  class RecordController {
     async addRecord (req,res,next){
         const recordDto = new RecordDto(req.body)
         
-        
         try {
             if(!recordDto.validate()){
-                throw new ValidationError('Validation failed...')  
+                throw new RecordValidationError('Validation failed...')  
                }
               
 

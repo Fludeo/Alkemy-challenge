@@ -22,8 +22,5 @@ this.date = date
 }
 
 
-validate (){
 
-return false
-}
 }

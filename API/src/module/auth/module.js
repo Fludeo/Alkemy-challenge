@@ -1,7 +1,6 @@
 const AuthController = require('./controller/auth_controller')
-const AuthService = require('./service/record_service')
-const AuthRepository = require('./repository/record_repository')
-const AuthModel = require('./model/record_model')
+const AuthService = require('./service/auth_service')
+
 /**
  *
  * @param {import('Express').Application}app
@@ -24,7 +23,5 @@ module.exports ={
 initAuthModule,
 AuthController,
 AuthService,
-AuthRepository,
-AuthModel,
 
 }

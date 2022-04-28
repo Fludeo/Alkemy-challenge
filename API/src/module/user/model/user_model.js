@@ -1,6 +1,5 @@
 const { DataTypes, Model } = require('sequelize');
 
-
 class UserModel extends Model {
 
     /**
@@ -22,15 +21,16 @@ static setup(sequelizeInstance) {
         email: {
           type: DataTypes.STRING,
           allowNull: false,
+          unique: true,
         },
-        password: {
-          type: DataTypes.FLOAT,
+        name: {
+          type: DataTypes.STRING,
           allowNull: false,
         },
-        records: {
-          type: DataTypes.ARRAY,
+        hash: {
+          type: DataTypes.STRING,
           allowNull: false,
-        }, 
+        },
       },
       {
         sequelize: sequelizeInstance,

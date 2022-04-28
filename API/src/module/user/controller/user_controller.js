@@ -1,18 +1,26 @@
-const RecordDto =  require('../dto/RecordDto');
+const UserDto =  require('../dto/user_dto');
+// eslint-disable-next-line no-unused-vars
 const ValidationError = require('../error/validation_error');
+const bcrypt = require('bcrypt');
+const fromUserDtoToEntity = require('../mapper/fromUserDtoToEntity');
 
-module.exports =  class RecordController {
+module.exports =  class UserController {
    
-    constructor(recordService){
-        this.recordService = recordService;
-        this.BASE_ROUTE = '/record';
+/**
+ * 
+ * @param {import('../service/user_service')} userService 
+ */
+
+
+    constructor(userService){
+        this.userService = userService;
+        this.BASE_ROUTE = '/user';
     }
 
     configureRoutes(app) {
         const BASEROUTE = this.BASE_ROUTE;
-        app.get(`${BASEROUTE}/:id`, this.getRecordById.bind(this));
-        app.post(`${BASEROUTE}/new`, this.addRecord.bind(this));
-
+        app.get(`${BASEROUTE}/:id`, this.getUserById.bind(this));
+        app.post(`${BASEROUTE}/signup`, this.signUp.bind(this));
       }
 
 
@@ -23,28 +31,27 @@ module.exports =  class RecordController {
  * @param {import('Express').Response} res 
  */
 
-    async getRecordById(req,res){
+    async getUserById(req,res){
       
 
 
         res.sendStatus(200)
     }
 
-    /**
+/**
  * 
  * @param {import('Express').Request} req 
  * @param {import('Express').Response} res 
  */
 
-    async addRecord (req,res,next){
-        const recordDto = new RecordDto(req.body)
-        
-        
+    async signUp (req,res,next){
+       const userDto = new UserDto(req.body)
+       const salt = await bcrypt.genSalt()
+       const hash = await bcrypt.hash(userDto.password,salt)
+       userDto.password = hash
         try {
-            if(!recordDto.validate()){
-                throw new ValidationError('Validation failed...')  
-               }
-              
+         
+          await this.userService.newUser(fromUserDtoToEntity(userDto))
 
             res.sendStatus(200);
         }

@@ -4,23 +4,17 @@ module.exports = class UserDto {
 
 /**
  * 
- * @param {Number} id 
  * @param {String} email 
- * @param {String} password 
-
+ * @param {String} name
+ * @param {String} password
  */
 
 
-constructor ({id,email,password}){
-this.id = id
+constructor ({email,name,password}){
 this.email = email
+this.name = name
 this.password = password
-
 }
 
 
-validate (){
-
-return true
-}
 }

@@ -1,24 +1,18 @@
  
- const {
-    default:  DIContainer, object, use, factory,
-  } = require('rsdi');
+const {default:  DIContainer, object, use, factory,} = require('rsdi');
 const { Sequelize } = require('sequelize');
 const {DefaultController} = require('../module/default/module')
 const {RecordController,RecordService,RecordRepository, RecordModel} = require('../module/record/module')
-const {
-  UserController,
-  UserService,
-  UserRepository,
-  UserModel,
-   } = require ('../module/user/module')
-
+const {UserController,UserService, UserRepository, UserModel,} = require ('../module/user/module')
+const {AuthController,AuthService} = require ('../module/auth/module')
+const SetDataAssociations = require('./data_asociation')
 
 
 
 const dbConfig = ()=>{
     const sequelize = new Sequelize({
     dialect: 'sqlite',
-    storage: 'src/data/database.db'
+    storage: './data/database.db'
   });
 return sequelize
 }
@@ -89,6 +83,23 @@ return RecordModel.setup(container.get('sequelize'))
     
     });
   }
+
+
+
+
+  /**
+ *
+ * @param {DIContainer} container
+ */
+
+   function addAuthDefinitions(container) {
+    container.add({
+      AuthController: object(AuthController).construct(use(AuthService),use(UserService)),
+      AuthService: object(AuthService).construct(use(RecordRepository)),
+    
+    });
+  }
+
 /**
  * @returns {DIContainer}
  */
@@ -97,7 +108,9 @@ return RecordModel.setup(container.get('sequelize'))
     const container = new DIContainer();
     addCommonDefinitions(container);
     addRecordDefinitions(container);
-    addUserDefinitions(container)
-  
+    addUserDefinitions(container);
+    addAuthDefinitions(container)
+    SetDataAssociations(container)
+    container.get('sequelize').sync()
     return container;
   };

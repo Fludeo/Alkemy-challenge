@@ -1,18 +1,40 @@
-module.exports =  class RecordRepository {
+module.exports =  class UserRepository {
    
 
     /**
      * 
-     * @param {import('../model/record_repository')} recordModel
+     * @param {import('../model/user_model')} userModel
      */
     
-        constructor(recordModel){
-            this.recordModel = recordModel;
+        constructor(userModel){
+            this.userModel = userModel;
         }
     
+            /**
+     * 
+     * @param {import('../entity/user_entity')} newUser
+     */
       
-    
-    
+        async addUser(newUser){
+            
+         const user =  this.userModel.build({
+              name:newUser.name,
+              email:newUser.email,
+              hash:newUser.hash,  
+             
+         })
+         await user.save()
+      
+         return user
+        }
+        
+        async getByEmail(email){
+
+            const user = await this.userModel.findOne({where:{email:email}})
+
+            return user
+        }
+        
     
     
     }
