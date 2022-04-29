@@ -1,6 +1,7 @@
+const fromUserModelToEntity = require('../mapper/fromUserModelToEntity');
+
 module.exports =  class UserRepository {
    
-
     /**
      * 
      * @param {import('../model/user_model')} userModel
@@ -31,10 +32,17 @@ module.exports =  class UserRepository {
         async getByEmail(email){
 
             const user = await this.userModel.findOne({where:{email:email}})
-
-            return user
+           
+            return  fromUserModelToEntity(user)
         }
-        
+
+
+        async getById(id){
+
+            const user = await this.userModel.findByPk(id)
+
+            return fromUserModelToEntity(user)
+        }
     
     
     }

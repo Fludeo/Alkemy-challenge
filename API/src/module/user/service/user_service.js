@@ -22,7 +22,7 @@ module.exports =  class UserService {
 
    }
 
-   async getByEmail(email){
+   async getUserByEmail(email){
 
     const user = await this.userRepository.getByEmail(email)
     if(user===null){
@@ -33,7 +33,16 @@ module.exports =  class UserService {
 
    }
   
+    async getUserById(id){
+        const user = await this.userRepository.getById(id)
+        if(user===null){
+            throw new UserNotFound ('User not found!!!')
+        }
     
+        return user
+    
+
+    }
 
 
 

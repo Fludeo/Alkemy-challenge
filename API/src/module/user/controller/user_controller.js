@@ -8,21 +8,29 @@ module.exports =  class UserController {
    
 /**
  * 
- * @param {import('../service/user_service')} userService 
+ * @param {import('../service/user_service')} userService
+ * @param {import('../../auth/module').AuthService} authService  
  */
 
 
-    constructor(userService){
+    constructor(userService,authService){
         this.userService = userService;
+        this.authService = authService;
         this.BASE_ROUTE = '/user';
     }
+    /**
+ * 
+ * @param {import('Express')} app 
+ */
 
     configureRoutes(app) {
         const BASEROUTE = this.BASE_ROUTE;
-        app.get(`${BASEROUTE}/:id`, this.getUserById.bind(this));
         app.post(`${BASEROUTE}/signup`, this.signUp.bind(this));
+        app.get(`${BASEROUTE}/info`,this.authService.authenticateToken,this.info.bind(this));
+        app.get(`${BASEROUTE}/:id`, this.getUserById.bind(this));
+       
+        
       }
-
 
 
 /**
@@ -33,10 +41,30 @@ module.exports =  class UserController {
 
     async getUserById(req,res){
       
-
-
         res.sendStatus(200)
+
+      
     }
+    /**
+ * 
+ * @param {import('Express').Request} req 
+ * @param {import('Express').Response} res 
+ */
+
+     async info(req,res,next){
+        try{
+           const user = await this.userService.getUserById(req.user.id)
+           res.status(200)
+           res.json(user.name)
+        }
+        catch(err){
+
+            next(err)
+        }
+      
+
+    }
+    
 
 /**
  * 
