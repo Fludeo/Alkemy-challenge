@@ -1,8 +1,9 @@
 const UserDto =  require('../dto/user_dto');
 // eslint-disable-next-line no-unused-vars
-const ValidationError = require('../error/validation_error');
+
 const bcrypt = require('bcrypt');
 const fromUserDtoToEntity = require('../mapper/fromUserDtoToEntity');
+const CredentialsTakenError = require('../error/credentialsTakenError');
 
 module.exports =  class UserController {
    
@@ -18,7 +19,7 @@ module.exports =  class UserController {
         this.authService = authService;
         this.BASE_ROUTE = '/user';
     }
-    /**
+/**
  * 
  * @param {import('Express')} app 
  */
@@ -27,7 +28,7 @@ module.exports =  class UserController {
         const BASEROUTE = this.BASE_ROUTE;
         app.post(`${BASEROUTE}/signup`, this.signUp.bind(this));
         app.get(`${BASEROUTE}/info`,this.authService.authenticateToken,this.info.bind(this));
-        app.get(`${BASEROUTE}/:id`, this.getUserById.bind(this));
+        app.get(`${BASEROUTE}/:id`,this.authService.authenticateToken, this.getUserById.bind(this));
        
         
       }
@@ -74,17 +75,22 @@ module.exports =  class UserController {
 
     async signUp (req,res,next){
        const userDto = new UserDto(req.body)
-       const salt = await bcrypt.genSalt()
-       const hash = await bcrypt.hash(userDto.password,salt)
-       userDto.password = hash
+     
         try {
-         
+            userDto.validate()
+            const salt = await bcrypt.genSalt()
+            const hash = await bcrypt.hash(userDto.password,salt)
+            userDto.password = hash
+          if(await this.userService.getUserByEmail(userDto.email))
+          {
+              throw new CredentialsTakenError(`User with email: ${userDto.email} already exists`)
+          }
           await this.userService.newUser(fromUserDtoToEntity(userDto))
 
             res.sendStatus(200);
         }
+
         catch (err){
-        
            next(err)
         }
         

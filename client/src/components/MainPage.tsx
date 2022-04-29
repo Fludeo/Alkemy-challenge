@@ -4,6 +4,7 @@ const MainPage = () =>{
 
 const [token,setToken] = useState({accesToken:''})
 const [formData,setFormData] = useState({})
+const [signupForm, setSignupForm] = useState({})
 
 
 const handleSubmit = async (e: { preventDefault: () => void }) =>{
@@ -25,6 +26,25 @@ const rawResponse = await fetch('/auth/login', {
 }
 catch(err){console.log(err)}
 }
+
+const handleSignup = async (e: { preventDefault: () => void }) =>{
+  e.preventDefault()
+  try{
+  const rawResponse = await fetch('/user/signup', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(signupForm)
+    });
+    const content = await rawResponse.json();
+  
+    console.log(content);
+  
+  }
+  catch(err){console.log(err)}
+  }
 
 
 const askForName = async (e: { preventDefault: () => void }) =>{
@@ -61,10 +81,20 @@ const askForName = async (e: { preventDefault: () => void }) =>{
           
             <button type="submit">nombre</button>
         </form>
-        
+        <form onSubmit={(e)=>handleSignup(e)}>
+            <p>email</p>
+            <input onChange={(e)=>setSignupForm({...signupForm ,email:e.currentTarget.value})} type="text" name="email" id="email"/>
+            <p>name</p>
+            <input onChange={(e)=>setSignupForm({...signupForm ,name:e.currentTarget.value})} type="text" name="name" id="name"/>
+            <p>password</p>
+            <input type="text" name="password" id="password" onChange={(e)=>setSignupForm({...signupForm ,password:e.currentTarget.value})} />
+            <button type="submit">ingresar</button>
+        </form>
     </div>)
 
 
 }
 
 export default MainPage
+
+

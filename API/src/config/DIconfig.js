@@ -54,7 +54,7 @@ return RecordModel.setup(container.get('sequelize'))
  *
  * @param {DIContainer} container
  */
-AuthService
+
   function addRecordDefinitions(container) {
     container.add({
       RecordController: object(RecordController).construct(use(RecordService),use(AuthService)),

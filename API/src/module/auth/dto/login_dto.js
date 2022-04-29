@@ -10,4 +10,5 @@ module.exports = class LoginDto {
         this.password =password
     }
 
+
 }

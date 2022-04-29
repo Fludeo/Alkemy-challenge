@@ -1,0 +1,189 @@
+
+
+
+.login-page{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    gap: 2rem;
+  
+}
+
+.login-page__bottom-bill{
+    position: fixed;
+    display: flex;
+    flex-shrink: 0;
+    top: 60vh;
+    left: 10vw;
+    width: 30rem;
+    height: 30rem;
+    fill: #00000023;
+    z-index: -1;
+}
+.login-page__top-bill{
+    position: fixed;
+    display: flex;
+    flex-shrink: 0;
+    top: 50px;
+    width: 10rem;
+    height: 10rem;
+    fill: #00000023;
+    z-index: -1;
+}
+.login-page__middle-bill{
+    position: fixed;
+    display: flex;
+    flex-shrink: 0;
+    right: -200px;
+    width: 40rem;
+    height: 40rem;
+    fill: #00000023;
+    z-index: -1;
+}
+
+.login-page__section-header{
+  
+    display: flex;
+    flex-direction: column;
+    margin: 2rem;
+    width: 30rem;
+    height: 30rem;
+    justify-content: left;
+    gap: 3rem;
+    
+
+}
+.title{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: left;
+    gap: 1rem;
+    margin: 0;
+  
+
+}
+.title__title{
+    margin: 0;
+    font-size: 5rem;
+    color: #000000de;
+}
+
+.title__icon{
+    width: 3.5rem;
+    height: 3.5rem;
+    margin: 0;
+    color:rgb(250, 207, 16);
+  
+
+}
+.login-page__section-text{
+    font-size: xx-large;
+    color: #00000099;
+    margin: 0;
+}
+.login-page__span{
+    color: #000000de;
+    font-weight: bold;
+
+}
+.login-page__signup-button{
+    width: 7rem;
+    height: 3.5rem;
+    font-weight: bold;
+    font-size: large;
+    border-radius: .5rem;
+    background-color: rgb(83, 8, 223);
+    box-shadow: 0 10px 20px 0 rgb(83 8 223 / 50%) ;
+    border: 2px solid rgb(83, 8, 223);
+    color: white;
+
+}
+.login-page__signup-button--hover:hover{
+    width: 7rem;
+    height: 3.5rem;
+    font-weight: bold;
+    font-size: large;
+    border-radius: .5rem;
+    background-color: rgb(51, 119, 245);
+    box-shadow: 0 10px 20px 0 rgb(51 119 245 / 50%) ;
+    border: 2px solid rgb(51, 119, 245);
+    color: white;
+
+}
+
+
+
+
+.login-page__section-login{
+
+    position: relative;
+    margin: 2rem;
+    top:-4rem;
+    width: 20rem;
+    height: 16rem;
+    gap: 3rem;
+    background-color: white;
+    box-shadow: 0 10px 20px 0 rgb(0 0 0 / 50%) ;
+    border-radius: .5rem;
+    padding: 3rem;
+}
+
+
+
+@media (max-width: 900px) {
+    .login-page{
+        padding: 0;
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        gap: 3rem;
+      
+    }
+
+    .login-page__section-header{
+  
+        display: flex;
+        flex-direction: column;
+        width: 20rem;
+        height: 20rem;
+        justify-content: center;
+        align-items: center;
+        gap: 2rem;
+        
+    }
+    .title__title{
+        align-self: center;
+        font-size: 3rem;
+    }
+    .login-page__section-text{
+        font-size: x-large;
+        color: #00000099;
+        margin: 0;
+    }
+
+    .login-page__section-login{
+        width: 15rem;
+        height: 16rem;
+    }
+
+
+  
+    .login-page__middle-bill{
+        width: 20rem;
+        height: 20rem;
+    }
+
+    .login-page__top-bill{
+        left: -5rem;
+        top: 10rem;
+    }
+}
