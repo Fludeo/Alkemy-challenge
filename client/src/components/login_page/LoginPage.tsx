@@ -1,22 +1,27 @@
 import '../styles/login_page.css'
 import React, { useState } from 'react'
 import { RiDatabase2Fill } from 'react-icons/ri'
-
+import { useNavigate } from "react-router-dom";
 import {FaMoneyBillWave} from 'react-icons/fa'
 import LoginForm from './LoginForm'
-import LoginFormType from '../../types/types'
+import {LoginFormType, SignFormType }from '../../types/types'
+import Modal from '../common/modal';
+import SignupForm from './SignupForm';
 
 
 type props = {
-    setAccesToken:(token:any)=>void
-}
+    setAccesToken:(token:string)=>void
+}   
 
 const LoginPage = ({setAccesToken}:props) => {
   const [loginForm, setLoginForm]  = useState<LoginFormType>({}as LoginFormType)
+  const [signupForm,setSignupForm]  = useState<SignFormType>({password:'' ,repeatPassword:''}as SignFormType)
+  const [modalTrigger,setModalTrigger] = useState<boolean> (false)
+  const navigate = useNavigate()
 
 
 
-  const handleLogin = async (e:Event) =>{
+const handleLogin = async (e:Event) =>{
     e.preventDefault()
     try{
         const rawResponse = await fetch('/auth/login', {
@@ -27,16 +32,54 @@ const LoginPage = ({setAccesToken}:props) => {
             },
             body: JSON.stringify(loginForm)
           });
+
           const content = await rawResponse.json();
-        
+          if(rawResponse.ok){
+         
           setAccesToken(content)
-          console.log(content);
+          console.log(content)
+          navigate('/home')
+        }
+        else{
+            setLoginForm({...loginForm, errorMessage:content.message})
+            throw new Error(content.message)
+        }
+        }
+        catch(err){
+            console.log(err)
+            navigate('/')
+        }
+        }
+const handleSignup = async (e:Event) =>{
+            e.preventDefault()
+            try{
+                const rawResponse = await fetch('/user/signup', {
+                    method: 'POST',
+                    headers: {
+                      'Accept': 'application/json',
+                      'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(signupForm)
+                  });
         
+                 
+                  if(rawResponse.ok){
+               
+                  setModalTrigger(false)
+                  navigate('/')
+                }
+                else{
+                    const content = await rawResponse.json()
+                    setSignupForm({...signupForm, errorMessage:content.message})
+                    throw new Error(content.message)
+                }
+                }
+                catch(err){
+                    console.log(err)
+                }
         }
-        catch(err){console.log(err)}
-        }
-  
-  console.log(loginForm)
+          
+ 
     return(
      <div className="login-page">
          <section className="login-page__section-header">
@@ -44,19 +87,27 @@ const LoginPage = ({setAccesToken}:props) => {
             <h1 className='title__title'>Alkemy</h1>
             <RiDatabase2Fill  className='title__icon'></RiDatabase2Fill>
         </div>
+
          <p className='login-page__section-text'>Keep track of your <span className='login-page__span'>finances</span></p>
-        
-         <button className='login-page__signup-button login-page__signup-button--hover'>Sign Up</button>
-       
-        
-         </section>
+         <button onClick={()=>setModalTrigger(true)} className='login-page__signup-button login-page__signup-button--hover'>Sign Up</button>
+        </section>
+
          <section className="login-page__section-login">
-            <LoginForm UpdateForm={(payload:LoginFormType ) => setLoginForm(payload) } 
+            <LoginForm  handleLogin={(e)=>handleLogin(e)} UpdateForm={(payload:LoginFormType ) => setLoginForm({...payload ,errorMessage:''}) } 
             formFields={loginForm}></LoginForm>
          </section>
+       
         <FaMoneyBillWave  className='login-page__bottom-bill'></FaMoneyBillWave>
         <FaMoneyBillWave  className='login-page__top-bill'></FaMoneyBillWave>
         <FaMoneyBillWave  className='login-page__middle-bill'></FaMoneyBillWave>
+        <Modal  trigger={modalTrigger}>
+             <SignupForm 
+             closeSignup={()=>{
+                 setSignupForm({...signupForm, errorMessage:''})
+                 setModalTrigger(false)}}
+             UpdateForm={(payload:SignFormType)=>setSignupForm({...payload ,errorMessage:''})} 
+             formFields={signupForm} handleSignup={(e)=>handleSignup(e)}></SignupForm>
+         </Modal>
     </div>)
 
 }

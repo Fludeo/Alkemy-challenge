@@ -30,9 +30,8 @@ module.exports =  class UserRepository {
         }
         
         async getByEmail(email){
-
             const user = await this.userModel.findOne({where:{email:email}})
-           
+            if(user===null) return null
             return  fromUserModelToEntity(user)
         }
 

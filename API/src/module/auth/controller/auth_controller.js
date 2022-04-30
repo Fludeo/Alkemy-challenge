@@ -15,7 +15,7 @@ this.BASE_ROUTE = '/auth'
     }
     configureRoutes(app) {
         const BASEROUTE = this.BASE_ROUTE;
-        app.post(`${BASEROUTE}/token`, this.token.bind(this));
+        app.post(`${BASEROUTE}/token`,this.authService.authenticateToken, this.token.bind(this));
         app.post(`${BASEROUTE}/login`, this.login.bind(this));
       }
  
@@ -36,7 +36,7 @@ this.BASE_ROUTE = '/auth'
     const loginDto = new LoginDto(req.body)
     
 try{
-
+loginDto.validate()
 const tokens = await this.authService.login(loginDto)
 res.status(200)
 res.json(tokens)

@@ -1,16 +1,19 @@
 import '../styles/login_form.css'
-import React from 'react';
-import LoginFormType from'../../types/types'
+import React, { useEffect } from 'react';
+import {LoginFormType }from'../../types/types'
 
 
 type props = {
     UpdateForm: (payload:LoginFormType)=>void
     formFields: LoginFormType
+    handleLogin:(e:any)=>void
 }
 
 
 
-const LoginForm =({UpdateForm,formFields}:props) =>{
+const LoginForm =({handleLogin,UpdateForm,formFields}:props) =>{
+
+
 
 
     return(
@@ -21,7 +24,10 @@ const LoginForm =({UpdateForm,formFields}:props) =>{
         <label className='login-form__label' >Password </label>
         <input onChange={(e)=>UpdateForm({...formFields, password: e.currentTarget.value})}
          className='login-form__input' type="password" />
-        <button className='login-form__login-button login-form__login-button--hover'>Log in</button>
+         <div className='login-form__button-container'>
+        <button onClick={handleLogin} className='login-form__login-button login-form__login-button--hover'>Log in</button>
+        <p className='login-form__error'>{formFields.errorMessage}</p>
+        </div>
     </form>
     )
 }

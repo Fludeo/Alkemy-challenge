@@ -1,0 +1,107 @@
+.signup-form{
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    width: 20rem;
+    border-radius: .5rem;
+    padding: 3rem;
+    gap: 1rem;
+}
+.signup-form__label{
+    color: #00000099;
+}
+.signup-form__input{
+    font-size: large;
+    background-color: #00000010;
+    border-radius: .2rem;
+    border: 1px solid #00000023;
+    outline-color: rgb(83, 8, 223);
+    padding: .5rem;
+
+}
+.signup-form__input--match{
+    border-color: rgb(51, 223, 8);
+}
+.signup-form__input--no-match{
+    border-color: rgb(223, 8, 55);
+}
+.signup-form__signup-button{
+  
+    width: 7rem;
+    height: 3.5rem;
+    font-weight: bold;
+    font-size: large;
+    border-radius: .5rem;
+    background-color: rgb(83, 8, 223);
+    box-shadow: 0 10px 20px 0 rgb(83 8 223 / 50%) ;
+    border: 2px solid rgb(83, 8, 223);
+    color: white;
+
+}
+
+.signup-form__signup-button--hover:hover{
+
+    background-color: rgb(51, 119, 245);
+    box-shadow: 0 10px 20px 0 rgb(51 119 245 / 50%) ;
+    border: 2px solid rgb(51, 119, 245);
+
+
+}
+
+.signup-form__cancel-button{
+  
+    width: 7rem;
+    height: 3.5rem;
+    font-weight: bold;
+    font-size: large;
+    border-radius: .5rem;
+    background-color: white;
+  
+    border: 2px solid rgb(83, 8, 223);
+    color: rgb(83, 8, 223);
+
+}
+
+.signup-form__cancel-button--hover:hover{
+
+    background-color: rgb(51, 119, 245);
+    box-shadow: 0 10px 20px 0 rgb(51 119 245 / 50%) ;
+    border: 2px solid rgb(51, 119, 245);
+    color: white;
+
+
+
+}
+
+
+
+.signup-form__button-container{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 1rem;
+    gap:1rem ;
+}
+.signup-form__error{
+    
+    color: rgb(223, 8, 55);;
+}
+
+@media (max-width: 900px) {
+
+
+
+    .signup-form__signup-button{
+        align-self: center;
+    }
+    .signup-form__button-container{
+
+        gap: 0;
+        margin-top: .5rem;
+         
+    }
+  
+   
+
+}

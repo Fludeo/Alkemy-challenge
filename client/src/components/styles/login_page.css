@@ -9,7 +9,7 @@
     align-items: center;
     justify-content: center;
     overflow: hidden;
-    gap: 2rem;
+   
   
 }
 
@@ -104,15 +104,13 @@
 
 }
 .login-page__signup-button--hover:hover{
-    width: 7rem;
-    height: 3.5rem;
-    font-weight: bold;
-    font-size: large;
-    border-radius: .5rem;
+
+   
+ 
     background-color: rgb(51, 119, 245);
     box-shadow: 0 10px 20px 0 rgb(51 119 245 / 50%) ;
     border: 2px solid rgb(51, 119, 245);
-    color: white;
+
 
 }
 

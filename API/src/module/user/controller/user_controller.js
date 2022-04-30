@@ -3,7 +3,7 @@ const UserDto =  require('../dto/user_dto');
 
 const bcrypt = require('bcrypt');
 const fromUserDtoToEntity = require('../mapper/fromUserDtoToEntity');
-const CredentialsTakenError = require('../error/credentialsTakenError');
+
 
 module.exports =  class UserController {
    
@@ -78,14 +78,15 @@ module.exports =  class UserController {
      
         try {
             userDto.validate()
+            
             const salt = await bcrypt.genSalt()
             const hash = await bcrypt.hash(userDto.password,salt)
             userDto.password = hash
-          if(await this.userService.getUserByEmail(userDto.email))
-          {
-              throw new CredentialsTakenError(`User with email: ${userDto.email} already exists`)
-          }
-          await this.userService.newUser(fromUserDtoToEntity(userDto))
+            const newUser = fromUserDtoToEntity(userDto)
+            await this.userService.newUser(newUser)
+            
+         
+         
 
             res.sendStatus(200);
         }

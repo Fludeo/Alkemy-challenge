@@ -8,6 +8,6 @@ const User = require('../entity/user_entity')
 module.exports = function FromUserDtoToEntity({name,email,password}){
 
     const user = new User(undefined,name,email,password)
-
+  
     return user
 }
