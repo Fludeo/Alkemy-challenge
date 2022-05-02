@@ -8,22 +8,22 @@
     gap: 1rem;
 }
 .signup-form__label{
-    color: #00000099;
+    color: var(--text-secondary);
 }
 .signup-form__input{
     font-size: large;
     background-color: #00000010;
     border-radius: .2rem;
     border: 1px solid #00000023;
-    outline-color: rgb(83, 8, 223);
+    outline-color: var(--color-primary);
     padding: .5rem;
 
 }
 .signup-form__input--match{
-    border-color: rgb(51, 223, 8);
+    border-color: var(--color-succes);
 }
 .signup-form__input--no-match{
-    border-color: rgb(223, 8, 55);
+    border-color: var(--color-danger);
 }
 .signup-form__signup-button{
   
@@ -32,18 +32,18 @@
     font-weight: bold;
     font-size: large;
     border-radius: .5rem;
-    background-color: rgb(83, 8, 223);
+    background-color: var(--color-primary);
     box-shadow: 0 10px 20px 0 rgb(83 8 223 / 50%) ;
-    border: 2px solid rgb(83, 8, 223);
+    border: 2px solid var(--color-primary);
     color: white;
 
 }
 
 .signup-form__signup-button--hover:hover{
 
-    background-color: rgb(51, 119, 245);
+    background-color: var(--color-selected);
     box-shadow: 0 10px 20px 0 rgb(51 119 245 / 50%) ;
-    border: 2px solid rgb(51, 119, 245);
+    border: 2px solid var(--color-selected);
 
 
 }
@@ -57,16 +57,16 @@
     border-radius: .5rem;
     background-color: white;
   
-    border: 2px solid rgb(83, 8, 223);
-    color: rgb(83, 8, 223);
+    border: 2px solid var(--color-primary);
+    color: var(--color-primary);
 
 }
 
 .signup-form__cancel-button--hover:hover{
 
-    background-color: rgb(51, 119, 245);
+    background-color: var(--color-selected);
     box-shadow: 0 10px 20px 0 rgb(51 119 245 / 50%) ;
-    border: 2px solid rgb(51, 119, 245);
+    border: 2px solid var(--color-selected);
     color: white;
 
 
@@ -85,7 +85,7 @@
 }
 .signup-form__error{
     
-    color: rgb(223, 8, 55);;
+    color: var(--color-danger);
 }
 
 @media (max-width: 900px) {

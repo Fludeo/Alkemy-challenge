@@ -1,5 +1,5 @@
-import '../styles/login_form.css'
-import React, { useEffect } from 'react';
+import '../styles/login_page/login_form.css'
+import React from 'react';
 import {LoginFormType }from'../../types/types'
 
 

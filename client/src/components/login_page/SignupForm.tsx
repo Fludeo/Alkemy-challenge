@@ -1,4 +1,4 @@
-import '../styles/signup_form.css'
+import '../styles/login_page/signup_form.css'
 import React, { useEffect, useState } from 'react';
 import { SignFormType } from '../../types/types';
 
@@ -14,7 +14,7 @@ type props = {
 
 
 const SignupForm =({closeSignup,handleSignup,UpdateForm,formFields}:props) =>{
-   const [match,setMatch] = useState<{match:boolean,blank:boolean}>({match:false,blank:true})
+const [match,setMatch] = useState<{match:boolean,blank:boolean}>({match:false,blank:true})
    
 
 

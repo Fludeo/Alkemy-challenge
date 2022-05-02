@@ -5,3 +5,15 @@
 
 
 
+
+:root{
+
+    --color-primary:rgb(83, 8, 223);
+    --color-secondary: rgb(250, 207, 16);
+    --color-selected: rgb(51, 119, 245);
+    --color-danger:rgb(223, 8, 55);
+    --color-succes:rgb(51, 223, 8);
+    --text-primary: #000000de;
+    --text-secondary: #00000099;
+
+}

@@ -1,4 +1,4 @@
-import '../styles/login_page.css'
+import '../styles/login_page/login_page.css'
 import React, { useEffect, useState } from 'react'
 import { RiDatabase2Fill } from 'react-icons/ri'
 import { useNavigate } from "react-router-dom";
@@ -10,10 +10,10 @@ import SignupForm from './SignupForm';
 
 
 type props = {
-    setAccesToken:(token:string)=>void
+    setAccessToken:(token:string)=>void
 }   
 
-const LoginPage = ({setAccesToken}:props) => {
+const LoginPage = ({setAccessToken}:props) => {
   const [loginForm, setLoginForm]  = useState<LoginFormType>({}as LoginFormType)
   const [signupForm,setSignupForm]  = useState<SignFormType>({password:'' ,repeatPassword:''}as SignFormType)
   const [modalTrigger,setModalTrigger] = useState<boolean> (false)
@@ -43,7 +43,7 @@ const handleLogin = async (e:React.MouseEvent<HTMLButtonElement, MouseEvent>) =>
           const content = await rawResponse.json();
           if(rawResponse.ok){
          
-          setAccesToken(content)
+          setAccessToken(content)
           console.log(content)
           navigate('/home')
         }
@@ -59,6 +59,10 @@ const handleLogin = async (e:React.MouseEvent<HTMLButtonElement, MouseEvent>) =>
         }
 const handleSignup = async (e:React.MouseEvent<HTMLButtonElement, MouseEvent>) =>{
             e.preventDefault()
+            if(signupForm.password!==signupForm.repeatPassword){
+              setSignupForm({...signupForm, errorMessage:'Passwords fields do not match'})
+              return
+            }
             try{
                 const rawResponse = await fetch('/user/signup', {
                     method: 'POST',
@@ -88,12 +92,13 @@ const handleSignup = async (e:React.MouseEvent<HTMLButtonElement, MouseEvent>) =
           
 
   const isLogged = (token:string) =>{
-    setAccesToken(token)
+    console.log(token)
+    setAccessToken(token)
     navigate('/home', {replace: true})
   }
         useEffect(()=>{
           fetch('/auth/token',{method:'POST'}).then(res=>res.json())
-          .then(res=>res.accessToken?
+          .then(res=>res.accessToken!==undefined?
             isLogged(res.accessToken)
             :navigate('/'))
             .catch(err=>{console.log(err)})
@@ -115,7 +120,6 @@ const handleSignup = async (e:React.MouseEvent<HTMLButtonElement, MouseEvent>) =
             <LoginForm  handleLogin={(e)=>handleLogin(e)} UpdateForm={(payload:LoginFormType ) => setLoginForm({...payload ,errorMessage:''}) } 
             formFields={loginForm}></LoginForm>
          </section>
-       
         <FaMoneyBillWave  className='login-page__bottom-bill'></FaMoneyBillWave>
         <FaMoneyBillWave  className='login-page__top-bill'></FaMoneyBillWave>
         <FaMoneyBillWave  className='login-page__middle-bill'></FaMoneyBillWave>

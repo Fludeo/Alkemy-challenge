@@ -4,14 +4,14 @@
     gap: 1rem;
 }
 .login-form__label{
-    color: #00000099;
+    color: var(--text-secondary);
 }
 .login-form__input{
     font-size: large;
     background-color: #00000010;
     border-radius: .2rem;
     border: 1px solid #00000023;
-    outline-color: rgb(83, 8, 223);
+    outline-color: var(--color-primary);
     padding: .5rem;
 
 }
@@ -23,14 +23,14 @@
     font-size: large;
     border-radius: .5rem;
     background-color: white;
-    border: 2px solid rgb(83, 8, 223);
-    color: rgb(83, 8, 223);
+    border: 2px solid var(--color-primary);
+    color: var(--color-primary);
 }
 
 .login-form__login-button--hover:hover{
 
-    background-color: rgb(51, 119, 245);
-    border: 2px solid rgb(51, 119, 245);
+    background-color: var(--color-selected);
+    border: 2px solid var(--color-selected);
     color: white;
 }
 .login-form__button-container{
@@ -42,7 +42,7 @@
 }
 .login-form__error{
     
-    color: rgb(223, 8, 55);;
+    color: var(--color-danger)
 }
 
 @media (max-width: 900px) {

@@ -21,10 +21,9 @@ module.exports =  class AuthService {
      * 
      * @param {import('../../user/entity/user_entity')} user 
      * @param {import('express').Response} res
-     * @param {import('express').Request} req
      */
         
-        async login(user,req,res){
+        async login(user,res){
 
             const checkUser = await this.userService.getUserByEmail(user.email) 
             if(!(await bcrypt.compare(user.password,checkUser.hash))){
@@ -34,6 +33,21 @@ module.exports =  class AuthService {
 
 
         }
+
+/**
+     * 
+     * @param {import('express').Response} res
+     */
+
+
+async logout (refreshToken){
+
+       
+        await this.authRepository.removeRefreshToken(refreshToken)
+      
+}
+
+
     /**
      * 
      * @param {import('../../user/entity/user_entity')} user 
@@ -41,18 +55,21 @@ module.exports =  class AuthService {
      */
       
         async giveAccessToken (user , res){
-            
-      
 
           const accessToken = generateAccessToken(user) 
           const refreshToken = generateRefreshToken(user)
-
-          res.cookie('alkemy', refreshToken,{
+          res.cookie('alk1', refreshToken,{
               httpOnly:true,
               secure: true,
               path: '/auth/token',
               expiresIn: '7d',
           })
+          res.cookie('alk2', refreshToken,{
+            httpOnly:true,
+            secure: true,
+            path: '/auth/logout',
+            expiresIn: '7d',
+        })
 
           await this.userService.saveRefreshToken(user,refreshToken)
           
@@ -67,14 +84,15 @@ module.exports =  class AuthService {
         authenticateToken(req,res,next){
  
             const authHeader = req.headers['authorization']
-            
             const token = authHeader && authHeader.split(' ')[1]
-          
+    
             if(token===null) {throw new InvalidTokenError('Invalid token!!!')}
           
              jwt.verify(token, process.env.ACCESS_TOKEN_SECRET,  (err,user)=>{
 
-                if(err){return res.sendStatus(403)}
+                if(err){
+                    throw new InvalidTokenError(`Error token ${err}`)
+                }
           
                 req.user = user
                 next()
@@ -85,12 +103,13 @@ module.exports =  class AuthService {
     
           async refreshToken (refreshToken,res){
 
-              await this.authRepository.removeRefreshToken(refreshToken)
+            await this.authRepository.removeRefreshToken(refreshToken)
     
-              let userToRefresh
+            let userToRefresh
+
             jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET,  (err,user)=>{
 
-                if(err){ throw new InvalidRefreshTokenError('Invalid token!!!')}
+                if(err){ throw new InvalidRefreshTokenError('Expired token!!!')}
           
                  userToRefresh = user
                

@@ -4,7 +4,7 @@ const { Sequelize } = require('sequelize');
 const {RecordController,RecordService,RecordRepository, RecordModel} = require('../module/record/module')
 const {UserController,UserService, UserRepository, UserModel,} = require ('../module/user/module')
 const {AuthController,AuthService ,AuthRepository, AuthModel} = require ('../module/auth/module')
-const SetDataAssociations = require('./data_asociation');
+const SetDataAssociations = require('./data_association');
 
 
 
@@ -12,7 +12,7 @@ const SetDataAssociations = require('./data_asociation');
 const dbConfig = ()=>{
     const sequelize = new Sequelize({
     dialect: 'sqlite',
-    storage: './data/database1.db'
+    storage: './data/database.db'
   });
 return sequelize
 }

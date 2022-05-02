@@ -2,7 +2,7 @@ import React, {   ReactNode } from "react"
 import ReactDOM  from "react-dom"
 
 
-import '../styles/modal.css'
+import '../styles/common/modal.css'
 
 type props = {
     trigger:boolean
