@@ -1,4 +1,6 @@
 const AuthController = require('./controller/auth_controller')
+const AuthModel = require('./model/auth_model')
+const AuthRepository = require('./repository/auth_repository')
 const AuthService = require('./service/auth_service')
 
 /**
@@ -23,5 +25,6 @@ module.exports ={
 initAuthModule,
 AuthController,
 AuthService,
-
+AuthRepository,
+AuthModel,
 }

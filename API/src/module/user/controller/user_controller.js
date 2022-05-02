@@ -78,7 +78,6 @@ module.exports =  class UserController {
      
         try {
             userDto.validate()
-            
             const salt = await bcrypt.genSalt()
             const hash = await bcrypt.hash(userDto.password,salt)
             userDto.password = hash

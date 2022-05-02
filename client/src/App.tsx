@@ -1,6 +1,6 @@
 
-import React, { useReducer } from 'react';
-import { Route, Routes } from 'react-router-dom';
+import React, { useEffect, useReducer } from 'react';
+import { Route, Routes, useNavigate } from 'react-router-dom';
 
 import './App.css';
 import LoginPage from './components/login_page/LoginPage';
@@ -32,16 +32,20 @@ let newState: typeof initialState
 function App() {
 
   const [state,dispatch] = useReducer(AppReducer, initialState)
+ 
+
+ 
 
 
 
-console.log(state)
+
+
 
   return (
     <div className="App">
       <Routes>
-      {state.accessToken===''&&<Route path='/' element={<LoginPage  setAccesToken={(payload:string)=>dispatch({type:'SET_ACCESS_TOKEN',payload:payload}) }></LoginPage>}/>}
-      {state.accessToken!==''&&<Route path='/home' element={<div><h1>AUTENTICADO</h1></div>}></Route>}
+      <Route path='/' element={<LoginPage  setAccesToken={(payload:string)=>dispatch({type:'SET_ACCESS_TOKEN',payload:payload}) }></LoginPage>}/>
+      <Route path='/home' element={<div><h1>AUTENTICADO</h1></div>}></Route>
       </Routes>
     </div>
   );

@@ -1,5 +1,5 @@
 const LoginDto = require('../dto/login_dto');
-
+const InvalidRefreshTokenError = require('../error/invalidRefreshToken');
 
 
 module.exports = class AuthController {
@@ -15,7 +15,7 @@ this.BASE_ROUTE = '/auth'
     }
     configureRoutes(app) {
         const BASEROUTE = this.BASE_ROUTE;
-        app.post(`${BASEROUTE}/token`,this.authService.authenticateToken, this.token.bind(this));
+        app.post(`${BASEROUTE}/token`, this.refreshToken.bind(this));
         app.post(`${BASEROUTE}/login`, this.login.bind(this));
       }
  
@@ -37,9 +37,9 @@ this.BASE_ROUTE = '/auth'
     
 try{
 loginDto.validate()
-const tokens = await this.authService.login(loginDto)
+const token = await this.authService.login(loginDto,req,res)
 res.status(200)
-res.json(tokens)
+res.json(token)
 
 }
 catch(err){
@@ -53,9 +53,28 @@ catch(err){
  * @param {import('Express').Request} req 
  * @param {import('Express').Response} res 
  */
-async token (req,res){
-    console.log(req)
-    console.log(res)
+
+
+async refreshToken (req,res,next){
+
+  const cookie = req.headers['cookie']
+            
+  const httpOnlyToken = cookie && cookie.split('=')[1]
+
+ 
+   try{
+    if(!httpOnlyToken){
+      throw new InvalidRefreshTokenError('No refresh token')
+    }
+    const newAccesToken = await this.authService.refreshToken(httpOnlyToken,res)
+    
+    res.status(200)
+    res.json(newAccesToken)
+    
+    }
+    catch(err){
+      next(err)
+    }
 
 }
 }

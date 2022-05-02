@@ -3,19 +3,30 @@ const {default:  DIContainer, object, use, factory,} = require('rsdi');
 const { Sequelize } = require('sequelize');
 const {RecordController,RecordService,RecordRepository, RecordModel} = require('../module/record/module')
 const {UserController,UserService, UserRepository, UserModel,} = require ('../module/user/module')
-const {AuthController,AuthService} = require ('../module/auth/module')
-const SetDataAssociations = require('./data_asociation')
+const {AuthController,AuthService ,AuthRepository, AuthModel} = require ('../module/auth/module')
+const SetDataAssociations = require('./data_asociation');
+
 
 
 
 const dbConfig = ()=>{
     const sequelize = new Sequelize({
     dialect: 'sqlite',
-    storage: './data/database.db'
+    storage: './data/database1.db'
   });
 return sequelize
 }
 
+
+  /**
+ *
+ * @param {DIContainer} container
+ */
+
+   function configureAuthModel(container){
+
+    return AuthModel.setup(container.get('sequelize'))
+    }
 /**
  *
  * @param {DIContainer} container
@@ -25,7 +36,6 @@ return sequelize
 
 return RecordModel.setup(container.get('sequelize'))
 }
-
 /**
  *
  * @param {DIContainer} container
@@ -35,6 +45,8 @@ return RecordModel.setup(container.get('sequelize'))
 
   return UserModel.setup(container.get('sequelize'))
   }
+
+
 
 
 
@@ -91,7 +103,9 @@ return RecordModel.setup(container.get('sequelize'))
    function addAuthDefinitions(container) {
     container.add({
       AuthController: object(AuthController).construct(use(AuthService)),
-      AuthService: object(AuthService).construct(use(UserService)),
+      AuthService: object(AuthService).construct(use(UserService),use(AuthRepository)),
+      AuthRepository: object(AuthRepository).construct(use(AuthModel)),
+      AuthModel: factory(configureAuthModel)
     
     });
   }
@@ -107,7 +121,8 @@ return RecordModel.setup(container.get('sequelize'))
     addAuthDefinitions(container)
     addRecordDefinitions(container);
     addUserDefinitions(container);
-    SetDataAssociations(container)
     container.get('sequelize').sync()
+    SetDataAssociations(container);
+    
     return container;
   };

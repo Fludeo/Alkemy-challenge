@@ -7,8 +7,8 @@ import { SignFormType } from '../../types/types';
 type props = {
     UpdateForm: (payload:SignFormType)=>void
     formFields: SignFormType
-    closeSignup:(e:any)=>void
-    handleSignup:(e:any)=>void
+    closeSignup:(e:React.MouseEvent<HTMLButtonElement, MouseEvent>)=>void
+    handleSignup:(e:React.MouseEvent<HTMLButtonElement, MouseEvent>)=>void
 }
 
 
@@ -16,6 +16,18 @@ type props = {
 const SignupForm =({closeSignup,handleSignup,UpdateForm,formFields}:props) =>{
    const [match,setMatch] = useState<{match:boolean,blank:boolean}>({match:false,blank:true})
    
+
+
+
+
+   const close = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>)=>{
+
+    e.preventDefault()
+    setMatch({match:false, blank:true})
+    closeSignup(e)
+   }
+
+
 
    useEffect(()=>{
 
@@ -68,7 +80,7 @@ const SignupForm =({closeSignup,handleSignup,UpdateForm,formFields}:props) =>{
          <p className='signup-form__error'>{formFields.errorMessage}</p>
          <div className='signup-form__button-container'>
          <button onClick={handleSignup} className='signup-form__signup-button signup-form__signup-button--hover'>Sign Up</button>
-         <button onClick={closeSignup} className='signup-form__cancel-button signup-form__cancel-button--hover'>Cancel</button>
+         <button onClick={(e)=> close(e)} className='signup-form__cancel-button signup-form__cancel-button--hover'>Cancel</button>
         </div>
     </form>
     )

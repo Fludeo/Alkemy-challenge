@@ -1,5 +1,5 @@
+const { AuthModel } = require('../../auth/module');
 const fromUserModelToEntity = require('../mapper/fromUserModelToEntity');
-
 module.exports =  class UserRepository {
    
     /**
@@ -28,7 +28,16 @@ module.exports =  class UserRepository {
       
          return user
         }
-        
+        async addRefreshToken(user,token){
+
+            const rerfreshUser = await this.userModel.findByPk(user.id)
+            const refreshToken = await AuthModel.create({refreshToken:token},{isNewRecord:true})
+            await rerfreshUser.addAuth(refreshToken)
+
+          
+        }
+
+
         async getByEmail(email){
             const user = await this.userModel.findOne({where:{email:email}})
             if(user===null) return null

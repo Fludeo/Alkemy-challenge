@@ -51,6 +51,10 @@ module.exports =  class UserService {
 
     }
 
+    async saveRefreshToken(user,token){
+
+        await this.userRepository.addRefreshToken(user,token)
+    }
 
 
 }

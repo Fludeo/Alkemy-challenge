@@ -1,5 +1,5 @@
 import '../styles/login_page.css'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { RiDatabase2Fill } from 'react-icons/ri'
 import { useNavigate } from "react-router-dom";
 import {FaMoneyBillWave} from 'react-icons/fa'
@@ -21,7 +21,14 @@ const LoginPage = ({setAccesToken}:props) => {
 
 
 
-const handleLogin = async (e:Event) =>{
+
+
+const closeSignupModal= () =>{
+        setSignupForm({...signupForm, errorMessage:''})
+        setModalTrigger(false)
+  }
+
+const handleLogin = async (e:React.MouseEvent<HTMLButtonElement, MouseEvent>) =>{
     e.preventDefault()
     try{
         const rawResponse = await fetch('/auth/login', {
@@ -50,7 +57,7 @@ const handleLogin = async (e:Event) =>{
             navigate('/')
         }
         }
-const handleSignup = async (e:Event) =>{
+const handleSignup = async (e:React.MouseEvent<HTMLButtonElement, MouseEvent>) =>{
             e.preventDefault()
             try{
                 const rawResponse = await fetch('/user/signup', {
@@ -79,6 +86,18 @@ const handleSignup = async (e:Event) =>{
                 }
         }
           
+
+  const isLogged = (token:string) =>{
+    setAccesToken(token)
+    navigate('/home', {replace: true})
+  }
+        useEffect(()=>{
+          fetch('/auth/token',{method:'POST'}).then(res=>res.json())
+          .then(res=>res.accessToken?
+            isLogged(res.accessToken)
+            :navigate('/'))
+            .catch(err=>{console.log(err)})
+        },[])
  
     return(
      <div className="login-page">
@@ -102,9 +121,7 @@ const handleSignup = async (e:Event) =>{
         <FaMoneyBillWave  className='login-page__middle-bill'></FaMoneyBillWave>
         <Modal  trigger={modalTrigger}>
              <SignupForm 
-             closeSignup={()=>{
-                 setSignupForm({...signupForm, errorMessage:''})
-                 setModalTrigger(false)}}
+             closeSignup={()=>closeSignupModal()}
              UpdateForm={(payload:SignFormType)=>setSignupForm({...payload ,errorMessage:''})} 
              formFields={signupForm} handleSignup={(e)=>handleSignup(e)}></SignupForm>
          </Modal>
