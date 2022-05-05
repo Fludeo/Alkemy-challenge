@@ -9,7 +9,6 @@ module.exports = class Record {
  * @param {Date} date 
  */
 
-
     constructor(
       id,
       concept,
@@ -17,14 +16,14 @@ module.exports = class Record {
       type,
       category,
       date,
-      createdAt,
+      createdAt, 
       updatedAt,
       deletedAt,
     ) {
       this.id = id;
       this.concept = concept;
-      this.email = amount;
-      this.hash = type;
+      this.amount = amount;
+      this.type = type;
       this.category = category;
       this.date = date;
       this.createdAt = createdAt;

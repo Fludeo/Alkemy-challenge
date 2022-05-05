@@ -19,7 +19,8 @@
     border-radius: .5rem;
     width: 36rem;
     height: 40rem;
-    box-shadow:  0 10px 20px 0 rgba(0, 0, 0, 0.5) ;
+    
+    
 }
 .balance__header{
     color: var(--text-secondary);
@@ -28,14 +29,49 @@
 .balance__number{
     text-align: right;
     color: var(--color-succes);
-    font-size: 4rem;
+    font-size: 5rem;
 }
+
+.balance__container{
+    width: 100%;
+    height: 50%;
+}
+
+.balance__button-container{
+    width: 100%;
+    height: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.balance__button{
+    cursor: pointer;
+    background-color: var(--color-primary);
+    font-weight: bold;
+    font-size: larger;
+    color:white;
+    border: 2px solid var(--color-primary);
+    border-radius: .5rem;
+    box-shadow: 0 10px 20px 0 rgba(83, 8, 223, 0.5);
+    width: 15rem;
+    height: 4rem;
+}   
+.balance__button--hover:hover{
+    background-color: var(--color-selected);
+    border: 2px solid var(--color-selected);
+    box-shadow: 0 10px 20px 0 rgb(51, 119, 245 , 0.5);
+   
+}   
 
 
 
 
 .section-records{
-
+    margin: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items:  center;
     border-radius: .5rem;
     width: 36rem;
     height: 40rem;
@@ -44,6 +80,27 @@
 
 .records__table{
    width: 100%;
+   padding: 1rem 2rem;
+   border-radius: .5rem;
+  
+
+
+}
+.records__table td{
+    color: var(--text-secondary);
+    height: 2.5rem;
+    text-align: center;
    
 }
-
+.records__table th{
+    
+    padding: 1rem;
+    
+    text-align: center;
+ 
+}
+.records__header {
+    text-align: center;
+   color: var(--color-primary);
+  
+}

@@ -29,7 +29,9 @@ module.exports =  class AuthService {
             if(!(await bcrypt.compare(user.password,checkUser.hash))){
             throw new IncorrectPasswordError('Incorrect password...')
              }
-           return await this.giveAccessToken(checkUser,res)
+
+           const accessToken =  await this.giveAccessToken(checkUser,res)
+           return accessToken
 
 
         }
@@ -55,24 +57,15 @@ async logout (refreshToken){
      */
       
         async giveAccessToken (user , res){
-
+       
           const accessToken = generateAccessToken(user) 
           const refreshToken = generateRefreshToken(user)
-          res.cookie('alk1', refreshToken,{
-              httpOnly:true,
-              secure: true,
-              path: '/auth/token',
-              expiresIn: '7d',
-          })
-          res.cookie('alk2', refreshToken,{
-            httpOnly:true,
-            secure: true,
-            path: '/auth/logout',
-            expiresIn: '7d',
-        })
 
+          await setCookies(res,refreshToken)
+      
           await this.userService.saveRefreshToken(user,refreshToken)
           
+         
           return {accessToken:accessToken}
         }
           
@@ -81,7 +74,7 @@ async logout (refreshToken){
      * @param {import('express').Request} req
      * @param {import('express').Response} res
      */
-        authenticateToken(req,res,next){
+       async authenticateToken(req,res,next){
  
             const authHeader = req.headers['authorization']
             const token = authHeader && authHeader.split(' ')[1]
@@ -107,18 +100,18 @@ async logout (refreshToken){
     
             let userToRefresh
 
-            jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET,  (err,user)=>{
+           jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET,  (err,user)=>{
 
                 if(err){ throw new InvalidRefreshTokenError('Expired token!!!')}
           
                  userToRefresh = user
                
             })
-
+            
             const user = await this.userService.getUserByEmail(userToRefresh.email) 
-
-            return await this.giveAccessToken(user,res)
-           
+           const accessToken = await this.giveAccessToken(user,res)
+  
+           return accessToken
 
           }
 
@@ -137,4 +130,22 @@ async logout (refreshToken){
     function generateRefreshToken (user){
         const accesToken = jwt.sign({id:user.id,email:user.email}, process.env.REFRESH_TOKEN_SECRET,{expiresIn: 60*60*24*7})   
         return accesToken   
+    }
+
+
+    /**
+     * 
+     * @param {import('express').Response} res 
+     * @param {String} refreshToken
+     */
+
+   async function setCookies (res,refreshToken){
+        res.cookie('alk1', refreshToken,{
+        httpOnly:true,
+        secure: true,
+        path:"/auth/session",
+        expiresIn: '7d',
+    })
+
+
     }

@@ -56,5 +56,9 @@ module.exports =  class UserService {
         await this.userRepository.addRefreshToken(user,token)
     }
 
-
+    async addRecord(record,user){
+        console.log(record)
+        
+        return await this.userRepository.addRecord(record,user)
+    }
 }

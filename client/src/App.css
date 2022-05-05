@@ -9,6 +9,7 @@
 :root{
 
     --color-primary:rgb(83, 8, 223);
+    --color-primary-shadow: rgba(83, 8, 223, 0.5);
     --color-secondary: rgb(250, 207, 16);
     --color-selected: rgb(51, 119, 245);
     --color-danger:rgb(223, 8, 55);

@@ -92,12 +92,13 @@ const handleSignup = async (e:React.MouseEvent<HTMLButtonElement, MouseEvent>) =
           
 
   const isLogged = (token:string) =>{
-    console.log(token)
     setAccessToken(token)
     navigate('/home', {replace: true})
   }
+
+  
         useEffect(()=>{
-          fetch('/auth/token',{method:'POST'}).then(res=>res.json())
+          fetch('/auth/session',{method:'POST'}).then(res=>res.json())
           .then(res=>res.accessToken!==undefined?
             isLogged(res.accessToken)
             :navigate('/'))

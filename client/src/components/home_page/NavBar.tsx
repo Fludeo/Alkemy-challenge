@@ -21,12 +21,13 @@ const resetToken =() =>{
 }
 const logout=(e: React.MouseEvent<HTMLElement, MouseEvent>)=>{
     e.preventDefault()
-    fetch('/auth/logout', {method:'POST',
+    fetch('/auth/session', {method:'POST',
     headers:{
         'Accept': 'application/json',
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${token}`,
-    }
+    },
+    body: JSON.stringify({logout:true})
 
 }).then(()=>{setTimeout(resetToken,200)}).catch(err => console.log(err))
     

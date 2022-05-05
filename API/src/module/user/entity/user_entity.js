@@ -17,7 +17,7 @@ module.exports = class User {
       createdAt,
       updatedAt,
       deletedAt,
-      records,
+      records ,
     ) {
       this.id = id;
       this.name = name;

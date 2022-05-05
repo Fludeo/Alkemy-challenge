@@ -1,3 +1,4 @@
+const RecordValidationError = require("../error/record_validation_error")
 
 
 module.exports = class RecordDto {
@@ -22,5 +23,17 @@ this.date = date
 }
 
 
+
+validate(){
+
+    if(this.concept===undefined||
+        this.amount===undefined||
+        this.type===undefined||
+        this.category===undefined||
+        this.date===undefined){
+
+        throw new RecordValidationError('No blank fields')
+    }
+}
 
 }

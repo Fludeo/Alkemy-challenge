@@ -15,9 +15,8 @@ this.BASE_ROUTE = '/auth'
     }
     configureRoutes(app) {
         const BASEROUTE = this.BASE_ROUTE;
-        app.post(`${BASEROUTE}/token`, this.refreshToken.bind(this));
         app.post(`${BASEROUTE}/login`, this.login.bind(this));
-        app.post(`${BASEROUTE}/logout`,this.logout.bind(this));
+        app.post(`${BASEROUTE}/session`, this.session.bind(this));
       }
  
 
@@ -54,11 +53,11 @@ catch(err){
  async logout(req,res,next){
   
  
- 
 try{
   const cookie = req.headers['cookie']
-  res.clearCookie('alk1',{httpOnly:true,secure:true,path:'/auth/token'})
-  res.clearCookie('alk2',{httpOnly:true,secure:true,path:'/auth/logout'})
+  res.clearCookie('alk1',{httpOnly:true,secure:true,path:'/auth/session'})
+  
+ 
   const httpOnlyToken = cookie && cookie.split('=')[1]
   if(httpOnlyToken === undefined){
     throw new InvalidRefreshTokenError('No refresh token')
@@ -83,12 +82,14 @@ next(err)
  */
 
 
-async refreshToken (req,res,next){
+async session (req,res,next){
 
+    if(req.body.logout){return this.logout(req,res,next) }
     
    try{
     const cookie = req.headers['cookie']
     const httpOnlyToken = cookie && cookie.split('=')[1]
+    console.log(httpOnlyToken)
     if(httpOnlyToken===null){
       throw new InvalidRefreshTokenError('No refresh token')
     }  

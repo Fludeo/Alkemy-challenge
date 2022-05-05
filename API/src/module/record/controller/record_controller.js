@@ -1,6 +1,7 @@
 
 const RecordDto =  require('../dto/record_dto');
-const RecordValidationError = require('../error/record_validation_error');
+
+const fromRecordDtoToEntity = require('../mapper/recordDtoToEntity')
 
 module.exports =  class RecordController {
    
@@ -11,18 +12,21 @@ module.exports =  class RecordController {
  */
 
     constructor(recordService,authService){
-        this.authService = authService
+        this.authService = authService;
         this.recordService = recordService;
         this.BASE_ROUTE = '/record';
     }
-
+/**
+ * 
+ * @param {import('express').Application} app
+ */
     configureRoutes(app) {
         const BASEROUTE = this.BASE_ROUTE;
-        app.get(`${BASEROUTE}/sort/:by`, this.authService.authenticateToken,this.getRecordById.bind(this));
-        app.get(`${BASEROUTE}/filter/:by`, this.authService.authenticateToken,this.getRecordById.bind(this));
-        app.get(`${BASEROUTE}/all`, this.authService.authenticateToken,this.getRecordById.bind(this));
-        app.get(`${BASEROUTE}/:id`, this.getRecordById.bind(this));
-        app.post(`${BASEROUTE}/new`, this.addRecord.bind(this));
+        app.get(`${BASEROUTE}/filter/by:by`, this.authService.authenticateToken,this.getRecordById.bind(this));
+        app.get(`${BASEROUTE}/all/`, this.authService.authenticateToken,this.getRecordById.bind(this));
+        app.delete(`${BASEROUTE}/delete/:id`,this.authService.authenticateToken, this.deleteRecordById.bind(this));
+        app.post(`${BASEROUTE}/new`,this.authService.authenticateToken, this.addRecord.bind(this));
+        app.post(`${BASEROUTE}/update`,this.authService.authenticateToken, this.getRecordById.bind(this));
 
       }
 
@@ -49,23 +53,38 @@ module.exports =  class RecordController {
 
     async addRecord (req,res,next){
         const recordDto = new RecordDto(req.body)
-        
+        const user = req.user
         try {
-            if(!recordDto.validate()){
-                throw new RecordValidationError('Validation failed...')  
-               }
-              
-
-            res.sendStatus(200);
+            recordDto.validate()
+               
+         
+            const record = fromRecordDtoToEntity(recordDto)
+            await this.recordService.addRecord(record,user)
+            
+        res.sendStatus(200);
         }
         catch (err){
         
            next(err)
         }
-        
-
-
     }
 
+    /**
+ * 
+ * @param {import('Express').Request} req 
+ * @param {import('Express').Response} res 
+ */
 
+
+    async deleteRecordById (req,res,next){
+      const recordId =  req.params.id
+      const user = req.user;
+        try{
+            await this.recordService.deleteRecordById(recordId,user)
+            res.sendStatus(200)
+        }
+        catch (err){
+            next(err)
+         }
+    }
 }

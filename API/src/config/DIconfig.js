@@ -70,7 +70,7 @@ return RecordModel.setup(container.get('sequelize'))
   function addRecordDefinitions(container) {
     container.add({
       RecordController: object(RecordController).construct(use(RecordService),use(AuthService)),
-      RecordService: object(RecordService).construct(use(RecordRepository)),
+      RecordService: object(RecordService).construct(use(RecordRepository),use(UserService)),
       RecordRepository: object(RecordRepository).construct(use(RecordModel)),
       RecordModel: factory(configureRecordModel),
     
