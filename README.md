@@ -10,4 +10,4 @@ Recomiendo dejar seteado el puerto en el archivo .env en 8080,  ya que el client
 
 En caso de setear otro puerto XXXX para el servidor hay que cambiar tambien la configuración del cliente a "proxy": "http://localhost:XXXX/" 
 
-Para correr el proyecto simplemente hay que abrir 2 terminales (asegurarse de abrirlas en las respectivas carpetas) e instalar las 2 con "npm install", en una correr el cliente con "npm start" y en la otra correr el servidor con el script "npm run server"
+Para correr el proyecto simplemente hay que abrir 2 terminales (asegurarse de abrirlas en las respectivas carpetas) e instalar las 2 apps con "npm install", luego correr el cliente con "npm start" y en la otra correr el servidor con el script "npm run server"
