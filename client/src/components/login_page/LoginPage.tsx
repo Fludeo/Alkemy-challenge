@@ -1,12 +1,12 @@
-import '../styles/login_page/login_page.css'
 import React, { useEffect, useState } from 'react'
+import '../styles/login_page/login_page.css'
+import {FaMoneyBillWave} from 'react-icons/fa'
 import { RiDatabase2Fill } from 'react-icons/ri'
 import { useNavigate } from "react-router-dom";
-import {FaMoneyBillWave} from 'react-icons/fa'
-import LoginForm from './LoginForm'
 import {LoginFormType, SignFormType }from '../../types/types'
 import Modal from '../common/modal';
 import SignupForm from './SignupForm';
+import LoginForm from './LoginForm'
 
 
 type props = {
@@ -28,6 +28,7 @@ const closeSignupModal= () =>{
         setModalTrigger(false)
   }
 
+
 const handleLogin = async (e:React.MouseEvent<HTMLButtonElement, MouseEvent>) =>{
     e.preventDefault()
     try{
@@ -39,24 +40,23 @@ const handleLogin = async (e:React.MouseEvent<HTMLButtonElement, MouseEvent>) =>
             },
             body: JSON.stringify(loginForm)
           });
-
           const content = await rawResponse.json();
           if(rawResponse.ok){
-         
-          setAccessToken(content)
-          console.log(content)
-          navigate('/home')
-        }
+          setAccessToken(content.accessToken)
+          navigate('/logged/home')
+            }
         else{
             setLoginForm({...loginForm, errorMessage:content.message})
             throw new Error(content.message)
-        }
+           }
         }
         catch(err){
             console.log(err)
             navigate('/')
         }
         }
+
+
 const handleSignup = async (e:React.MouseEvent<HTMLButtonElement, MouseEvent>) =>{
             e.preventDefault()
             if(signupForm.password!==signupForm.repeatPassword){
@@ -71,9 +71,7 @@ const handleSignup = async (e:React.MouseEvent<HTMLButtonElement, MouseEvent>) =
                       'Content-Type': 'application/json'
                     },
                     body: JSON.stringify(signupForm)
-                  });
-        
-                 
+                  }); 
                   if(rawResponse.ok){
                
                   setModalTrigger(false)
@@ -89,21 +87,20 @@ const handleSignup = async (e:React.MouseEvent<HTMLButtonElement, MouseEvent>) =
                     console.log(err)
                 }
         }
-          
-
-  const isLogged = (token:string) =>{
+         
+        
+const isLogged = (token:string) =>{
     setAccessToken(token)
-    navigate('/home', {replace: true})
-  }
+    navigate('/logged/home', {replace: true})
+       }
 
-  
-        useEffect(()=>{
+    useEffect(()=>{
           fetch('/auth/session',{method:'POST'}).then(res=>res.json())
           .then(res=>res.accessToken!==undefined?
             isLogged(res.accessToken)
             :navigate('/'))
             .catch(err=>{console.log(err)})
-        },[])
+      },[])
  
     return(
      <div className="login-page">
@@ -129,7 +126,7 @@ const handleSignup = async (e:React.MouseEvent<HTMLButtonElement, MouseEvent>) =
              closeSignup={()=>closeSignupModal()}
              UpdateForm={(payload:SignFormType)=>setSignupForm({...payload ,errorMessage:''})} 
              formFields={signupForm} handleSignup={(e)=>handleSignup(e)}></SignupForm>
-         </Modal>
+        </Modal>
     </div>)
 
 }

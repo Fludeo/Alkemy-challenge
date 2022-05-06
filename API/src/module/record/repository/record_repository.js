@@ -39,9 +39,11 @@ module.exports =  class RecordRepository {
 
       return await this.recordModel.destroy({where:{id:recordId}})
    
-      
-    
+    }
 
+    async getAll(user){
+      const records = await this.recordModel.findAll({where:{user_id:user.id}})
+      return records.map((record)=>fromRecordModelToEntity(record))
     }
     
     }

@@ -1,54 +1,60 @@
 
-import React, {  useReducer } from 'react';
-import { Route, Routes, } from 'react-router-dom';
 
+import React, {  useEffect, useState } from 'react';
+import { Route, Routes, } from 'react-router-dom';
 import './App.css';
-import HomePage from './components/home_page/HomePage';
+import LoggedPage from './components/home_page/LoggedPage';
 import LoginPage from './components/login_page/LoginPage';
 
 
 
-
-const initialState = {
-  accessToken:'',
-}
-
-type actionType = {type:'SET_ACCESS_TOKEN',payload:string}
-
-
-
-const AppReducer =(state:typeof initialState,action: actionType)=>{
-let newState: typeof initialState
-  switch(action.type){
-    case 'SET_ACCESS_TOKEN':
-      newState = {...state, accessToken:action.payload}
-      console.log(newState)
-      return newState
-      default:
-        return {...state}
-  }
-  
-}
-
-
 function App() {
 
-  const [state,dispatch] = useReducer(AppReducer, initialState)
- 
+
+  const [token,setToken] = useState<string>('')
 
  
+  const refreshSession = async()=>{
+   if(token===''){return console.log('no hay session')}
+   try{
+    const response =  await fetch('/auth/session',{method:'POST'})
+    const token = await response.json()
+   
+    setToken( await token.accessToken)
+   }catch(err){
+
+
+    console.log(err)
+
+   }
+
+
+ }
 
 
 
+  useEffect(()=>{
+    //token refresh after 14min. the access token has a 15 min duration.
+   const refresh = setTimeout(refreshSession,1000*60*14)
 
+    return () =>{
+      clearTimeout(refresh)
+    }
+  },[token])
 
 
   return (
     <div className="App">
+  
       <Routes>
-      <Route path='/' element={<LoginPage  setAccessToken={(payload:string)=>dispatch({type:'SET_ACCESS_TOKEN',payload:payload}) }></LoginPage>}/>
-      <Route path='/home' element={<HomePage token={state.accessToken} setAccessToken={(payload:string)=>dispatch({type:'SET_ACCESS_TOKEN',payload:payload}) }></HomePage>}></Route>
+      <Route path='/' element={
+       <LoginPage  setAccessToken={(payload:string)=>setToken(payload) }></LoginPage>}>
+       </Route>
+      <Route path='/logged/*' element={
+       <LoggedPage token={token} setAccessToken={(payload:string)=>setToken(payload) }></LoggedPage>}>
+      </Route>
       </Routes>
+
     </div>
   );
 }

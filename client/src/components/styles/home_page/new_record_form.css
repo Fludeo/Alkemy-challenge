@@ -1,4 +1,4 @@
-.signup-form{
+.new-record-form{
     display: flex;
     flex-direction: column;
     background-color: white;
@@ -7,10 +7,10 @@
     padding: 3rem;
     gap: 1rem;
 }
-.signup-form__label{
+.new-record-form__label{
     color: var(--text-secondary);
 }
-.signup-form__input{
+.new-record-form__input{
     font-size: large;
     background-color: #00000010;
     border-radius: .2rem;
@@ -19,14 +19,18 @@
     padding: .5rem;
 
 }
-.signup-form__input--match{
-    border-color: var(--color-succes);
+
+
+.new-record-form__checkbbox-container{
+    display:flex;
+    flex-direction:row;
+    justify-content: space-around;
 }
-.signup-form__input--no-match{
-    border-color: var(--color-danger);
-}
-.signup-form__signup-button{
-  
+
+
+
+
+.new-record-form__accept-button{
     width: 7rem;
     height: 3.5rem;
     font-weight: bold;
@@ -39,7 +43,7 @@
 
 }
 
-.signup-form__signup-button--hover:hover{
+.new-record-form__accept-button--hover:hover{
 
     background-color: var(--color-selected);
     box-shadow: 0 10px 20px 0 rgb(51 119 245 / 50%) ;
@@ -48,7 +52,7 @@
 
 }
 
-.signup-form__cancel-button{
+.new-record-form__cancel-button{
   
     width: 7rem;
     height: 3.5rem;
@@ -62,7 +66,7 @@
 
 }
 
-.signup-form__cancel-button--hover:hover{
+.new-record-form__cancel-button--hover:hover{
 
     background-color: var(--color-selected);
     box-shadow: 0 10px 20px 0 rgb(51 119 245 / 50%) ;
@@ -75,7 +79,7 @@
 
 
 
-.signup-form__button-container{
+.new-record-form__button-container{
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -83,7 +87,7 @@
     margin-top: 1rem;
     gap:1rem ;
 }
-.signup-form__error{
+.new-record-form__error{
     
     color: var(--color-danger);
 }
@@ -92,10 +96,10 @@
 
 
 
-    .signup-form__signup-button{
+    .new-record-form__accept-button{
         align-self: center;
     }
-    .signup-form__button-container{
+    .new-record-form__button-container{
 
         gap: 0;
         margin-top: .5rem;

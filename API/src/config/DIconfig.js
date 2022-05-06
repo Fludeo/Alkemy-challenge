@@ -53,6 +53,7 @@ return RecordModel.setup(container.get('sequelize'))
 /**
  *
  * @param {DIContainer} container
+ * Defines common dependencies
  */
 
 
@@ -65,12 +66,13 @@ return RecordModel.setup(container.get('sequelize'))
 /**
  *
  * @param {DIContainer} container
+ * Defines Record Module dependencies
  */
 
   function addRecordDefinitions(container) {
     container.add({
       RecordController: object(RecordController).construct(use(RecordService),use(AuthService)),
-      RecordService: object(RecordService).construct(use(RecordRepository),use(UserService)),
+      RecordService: object(RecordService).construct(use(RecordRepository)),
       RecordRepository: object(RecordRepository).construct(use(RecordModel)),
       RecordModel: factory(configureRecordModel),
     
@@ -80,6 +82,7 @@ return RecordModel.setup(container.get('sequelize'))
   /**
  *
  * @param {DIContainer} container
+ * Defines User Module dependencies
  */
 
    function addUserDefinitions(container) {
@@ -98,6 +101,7 @@ return RecordModel.setup(container.get('sequelize'))
   /**
  *
  * @param {DIContainer} container
+ * Defines Auth Module dependencies
  */
 
    function addAuthDefinitions(container) {
@@ -112,11 +116,13 @@ return RecordModel.setup(container.get('sequelize'))
 
 /**
  * @returns {DIContainer}
+ * Dependency Injection container boostrapper
  */
 
   module.exports = function ConfigDIC() {
+
     const container = new DIContainer();
-    
+  
     addCommonDefinitions(container);
     addAuthDefinitions(container)
     addRecordDefinitions(container);

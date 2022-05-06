@@ -7,12 +7,10 @@ module.exports =  class RecordService   {
 /**
  * 
  * @param {import('../repository/record_repository')} recordRepository 
- * @param {import('../../user/service/user_service')} userService
  */
 
-    constructor(recordRepository,userService){
+    constructor(recordRepository){
         this.recordRepository = recordRepository;
-        this.userService = userService;
     }
 
   async  addRecord(record,user){
@@ -40,6 +38,19 @@ module.exports =  class RecordService   {
     }
   }
 
+  async getBalance(user){
+    const allRecords = await this.recordRepository.getAll(user)
 
+    const balance = allRecords.reduce(balanceReducer)
+
+    return await balance.amount
+  }
+
+}
+
+const balanceReducer =(prev,current)=>{
+  const result =  current.type==='income'? prev.amount+current.amount : prev.amount-current.amount
+
+  return {amount:result}
 
 }

@@ -22,11 +22,13 @@ module.exports =  class RecordController {
  */
     configureRoutes(app) {
         const BASEROUTE = this.BASE_ROUTE;
-        app.get(`${BASEROUTE}/filter/by:by`, this.authService.authenticateToken,this.getRecordById.bind(this));
-        app.get(`${BASEROUTE}/all/`, this.authService.authenticateToken,this.getRecordById.bind(this));
+       
+        app.get(`${BASEROUTE}/balance` , this.authService.authenticateToken , this.getBalance.bind(this));
+        app.get(`${BASEROUTE}/all`, this.authService.authenticateToken,this.getRecordById.bind(this));
         app.delete(`${BASEROUTE}/delete/:id`,this.authService.authenticateToken, this.deleteRecordById.bind(this));
         app.post(`${BASEROUTE}/new`,this.authService.authenticateToken, this.addRecord.bind(this));
         app.post(`${BASEROUTE}/update`,this.authService.authenticateToken, this.getRecordById.bind(this));
+        app.get(`${BASEROUTE}/filter/by:by`, this.authService.authenticateToken,this.getRecordById.bind(this));
 
       }
 
@@ -44,6 +46,26 @@ module.exports =  class RecordController {
 
         res.sendStatus(200)
     }
+    /**
+ * 
+ * @param {import('Express').Request} req 
+ * @param {import('Express').Response} res 
+ */
+
+     async getBalance(req,res,next){
+        try{
+            const  user = await req.user
+            const balance = await this.recordService.getBalance(user)
+            res.status(200);
+            res.json({balance:balance})
+        }
+        catch(err){
+            next(err)
+        }
+
+       
+    }
+
 
     /**
  * 

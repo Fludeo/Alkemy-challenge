@@ -78,7 +78,7 @@ async logout (refreshToken){
  
             const authHeader = req.headers['authorization']
             const token = authHeader && authHeader.split(' ')[1]
-    
+          console.log(authHeader)
             if(token===null) {throw new InvalidTokenError('Invalid token!!!')}
           
              jwt.verify(token, process.env.ACCESS_TOKEN_SECRET,  (err,user)=>{
@@ -140,7 +140,7 @@ async logout (refreshToken){
      */
 
    async function setCookies (res,refreshToken){
-        res.cookie('alk1', refreshToken,{
+        res.cookie(process.env.HTTPONLY_COOKIE_NAME, refreshToken,{
         httpOnly:true,
         secure: true,
         path:"/auth/session",

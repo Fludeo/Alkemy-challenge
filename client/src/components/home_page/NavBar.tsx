@@ -17,7 +17,7 @@ const navigate = useNavigate()
 
 const resetToken =() =>{
     setAccessToken('')
-    navigate('/home')
+    navigate('/')
 }
 const logout=(e: React.MouseEvent<HTMLElement, MouseEvent>)=>{
     e.preventDefault()

@@ -55,7 +55,7 @@ catch(err){
  
 try{
   const cookie = req.headers['cookie']
-  res.clearCookie('alk1',{httpOnly:true,secure:true,path:'/auth/session'})
+  res.clearCookie(process.env.HTTPONLY_COOKIE_NAME,{httpOnly:true,secure:true,path:'/auth/session'})
   
  
   const httpOnlyToken = cookie && cookie.split('=')[1]

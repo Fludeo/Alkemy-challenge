@@ -1,16 +1,59 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
+
 import NavBar from "./NavBar";
 import '../styles/home_page/home_page.css'
 import { useNavigate } from "react-router-dom";
 import Modal from "../common/modal";
+import NewRecordForm from "./NewRecordForm";
+import { RecordFormType } from "../../types/types";
+import TotalBalance from "./TotalBalance";
+
+
+
 
 
 type props = {
     token:string
-    setAccessToken:(payload:string)=>any
+  
 }
-const HomePage = ({token,setAccessToken}:props) => {
+const HomePage = ({token}:props) => {
+const [newRecordModal,setNewRecordModal] = useState<boolean>(false)
+const [newRecordForm ,setNewRecordForm] =useState<RecordFormType>({}as RecordFormType)
 const navigate = useNavigate()
+
+
+
+
+const handleRecordSubmit = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>)=>{
+e.preventDefault()
+
+try{
+    const response = await fetch('/record/new', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization' :`Bearer ${token}`,
+        },
+        body: JSON.stringify(newRecordForm)
+      });
+      if(response.ok){
+        navigate('/logged/home')
+        setNewRecordModal(false)
+     
+    }
+    else{
+        const content = await response.json();
+        setNewRecordForm({...newRecordForm, errorMessage:content.message})
+        throw new Error(content.message)
+    }
+    }
+    catch(err){
+        console.log(err)
+    }
+}
+
+
 
  useEffect(()=>{
 if(token===''){
@@ -19,56 +62,20 @@ if(token===''){
 
  },[token])
     return (
-    <div className="home-page">
-    <NavBar token={token} setAccessToken={setAccessToken}></NavBar>
+    
     <main className="main-home">
         <section className="section-balance">
-            <div className="balance__container">
-            <h1 className="balance__header">Total balance:</h1>
-            <h1 className="balance__number" >190.289,00$</h1>
-            </div>
-            <div className="balance__button-container">
-                <button className="balance__button balance__button--hover">New Record</button>
-            </div>
-        
+            <TotalBalance token= {token} buttonOnclick={()=>setNewRecordModal(true)}></TotalBalance>
         </section>
         <section className="section-records">
-            <table className="records__table">
-                <thead className="records__header">
-                    <tr>
-                        <th>Concept</th>
-                        <th>Date</th>
-                        <th>Category</th>
-                        <th>Type</th>
-                        <th>Amount</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Dinner</td>
-                        <td>{new Date().getMonth()}/{new Date().getDay()}/{new Date().getFullYear()}</td>
-                        <td>Electronic</td>
-                        <td>outgo</td>
-                        <td>2000$</td>
-                    </tr>
-                    <tr>
-                        <td>new TV</td>
-                        <td>2000$</td>
-                        <td>{new Date().getMonth()}/{new Date().getDay()}/{new Date().getFullYear()}</td>
-                        <td>outgo</td>
-                        <td>Electronic</td>
-                    </tr>
-                </tbody>
-            </table>
-        </section>
-    </main>
-    <Modal trigger={false}>
-        <form>
             
-        </form>
-    </Modal>
-    </div>)
+        </section>
+        <Modal trigger={newRecordModal}>
+        <NewRecordForm handleRecordSubmit ={(e:React.MouseEvent<HTMLButtonElement, MouseEvent>)=>handleRecordSubmit(e)} formFields={newRecordForm} UpdateForm={(payload:RecordFormType)=>setNewRecordForm({...payload, errorMessage:''})} closeForm={()=>setNewRecordModal(false)}></NewRecordForm>
+        </Modal>
+    </main>
+    
+   )
 }
-
 
 export default HomePage;

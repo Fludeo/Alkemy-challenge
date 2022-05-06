@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 require('dotenv').config()
 
 const express = require('express')
@@ -17,12 +18,13 @@ const container = ConfigureDIC()
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+// Routes initialization 
 
   initAuthModule(app,container)
   initRecordModule(app,container)
   initUserModule(app,container)
 
-// eslint-disable-next-line no-unused-vars
+
 app.use(function (err,req,res,next){
  
   res.status(500)
