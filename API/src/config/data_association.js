@@ -9,7 +9,7 @@ module.exports = function SetDataAssociations(container) {
     const record = container.get('RecordModel');
     const user = container.get('UserModel');
     record.belongsTo(user,{foreignKey: 'user_id'});
-    user.hasMany(record ,{foreignKey: 'user_id'});
+    user.hasMany(record ,{as:'records', foreignKey: 'user_id'});
     token.belongsTo(user ,{foreignKey: 'user_id'});
     user.hasMany(token ,{foreignKey: 'user_id'})
   };

@@ -99,6 +99,10 @@
 
 
 @media (max-width: 900px){
+
+    .nav-bar{
+        box-shadow: 0 10px 20px 0 rgba(0,0,0,0.5);
+    }
     .links__logout-button{
         visibility: hidden;
         width: 0;
@@ -109,4 +113,5 @@
     .links__link {
         width: 5rem;
     }
+
 } 

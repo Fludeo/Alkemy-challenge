@@ -10,7 +10,6 @@
 }
 .section-balance{
     margin: 2rem;
-    padding: 0 2.5rem;
     border-radius: .5rem;
     width: 36rem;
     height: 40rem;
@@ -26,6 +25,50 @@
     border-radius: .5rem;
     width: 36rem;
     height: 40rem;
+
     
 }
 
+@media (max-width: 900px) {
+
+
+    .main-home{
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: fit-content;
+        
+    }
+  
+    .section-balance{
+    
+        width: 32rem;
+        height:16rem;
+                
+        
+    }
+    .section-records{
+ 
+        
+        width: 32rem;
+        height: fit-content;
+        
+    }
+   
+
+}
+
+@media (max-width: 540px) {
+
+
+
+.section-balance{
+    width: 22rem;
+}
+.section-records{
+    width: 22rem;
+    height: fit-content;
+}
+
+
+}

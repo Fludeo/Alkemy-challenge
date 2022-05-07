@@ -13,7 +13,9 @@ const { initAuthModule } = require('./module/auth/module')
 const { initRecordModule } = require('./module/record/module')
 const { initUserModule } = require('./module/user/module')
 
-const container = ConfigureDIC()
+// DIcontainer initialization
+
+  const container = ConfigureDIC()
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());

@@ -1,0 +1,184 @@
+.table-container{
+    width:100%;
+    height: fit-content;
+    box-shadow: 0 10px 20px 0 rgba(0,0,0,0.5);
+    border-radius: .5rem;
+    overflow: hidden;
+}
+.mobile-table{
+    display: none;
+  
+
+}
+
+.table{
+    width:100%;
+    border-collapse: collapse;
+    text-align: left;
+    font-size: small;
+}
+.table th {
+    padding: 0 1rem;
+}
+.table td {
+    padding: 0 1rem;
+}
+
+
+.table__head{
+    height: 2rem;
+    font-weight: bold;
+    color: var(--color-primary);
+    border-radius: .5rem;
+    background-color: var(--text-);
+    border-bottom: 1px solid rgb(0, 0,0 ,0.1)
+   
+   
+}
+
+
+
+
+.table__data-row{
+    height: 3rem;
+    color: var(--text-primary);
+    border-bottom: 1px solid rgb(0, 0,0 ,0.1)
+}
+
+.table__type-outcome{
+    font-weight: bold;
+    padding: .3rem; 
+    width: 3.5rem;
+    text-align: center;
+    border-radius:.4rem;
+    color:var(--color-danger);
+    background-color:rgb(223, 8, 55,0.2) ;
+}
+
+.table__type-income{
+    font-weight: bold;
+    padding: .3rem;
+    width: 3.5rem;
+    text-align: center;
+    border-radius:.4rem;
+    color:rgb(42, 185, 7);
+    background-color:rgb(51, 223, 8,0.2) ;
+}
+
+
+
+@media (max-width: 900px) {
+
+
+
+}
+
+
+
+@media (max-width: 540px) {
+
+    .table{
+        display: none;
+       
+    }
+    .mobile-table{
+        display: flex;
+        flex-direction: column;
+        width:100%;
+        font-size: small;
+        
+
+    }
+    .mobile-table__head{
+        display: flex;
+        flex-direction: row;
+        width:100%;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+       color: var(--color-primary);
+       font-weight: bold;
+        
+    }
+
+    .mobile-table__header-amount{
+        text-align: left;
+        width: 30%;
+        padding: 0 1rem;
+       
+    }
+    .mobile-table__header-concept{
+        width: 35%;
+        text-align: left;
+        padding: 0 0.5rem;
+    }
+    .mobile-table__header-type{
+        text-align: left;
+        width:35%;
+        padding: 0 0.5rem;
+    }
+
+
+
+
+
+    .mobile-table__card{
+        display: flex;
+        flex-direction: row;
+        width:100%;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+       color: var(--text-primary);
+    }
+    .mobile-table__card-amount{
+        text-align: left;
+        width: 30%;
+        padding: 0 1rem;
+    }
+    .mobile-table__card-concept{
+        width: 35%;
+        text-align: left;
+        padding: 0 1rem;
+    }
+    .mobile-table__card-type{
+        text-align: left;
+        width:35%;
+        padding: .5rem 1rem;
+        
+    }
+
+    .mobile-table__type-income{
+        
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        font-weight: bold;
+       
+        width: 4rem;
+        height: 1.5rem;
+ 
+        border-radius:.4rem;
+        color:rgb(42, 185, 7);
+        background-color:rgb(51, 223, 8,0.2) ;
+
+    }
+
+    
+    .mobile-table__type-outgo{
+        
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        font-weight: bold;
+       
+        width: 4rem;
+        height: 1.5rem;
+ 
+        border-radius:.4rem;
+        color:var(--color-danger);
+        background-color:rgb(223, 8, 55,0.2) ;
+
+    }
+
+
+
+}

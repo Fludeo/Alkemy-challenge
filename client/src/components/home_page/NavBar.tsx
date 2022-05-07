@@ -43,7 +43,7 @@ const logout=(e: React.MouseEvent<HTMLElement, MouseEvent>)=>{
         </div>
         <div className="links" >
                  <div className="links__link links__link--hover"><p className="links__text" >Home</p></div>
-                 <div className="links__link links__link--hover"><p className="links__text" >ABM</p></div>
+                 <div className="links__link links__link--hover"><p className="links__text" >Crud</p></div>
                  <div onClick={(e)=>logout(e)} className="links__logout"><button  className="links__logout-button">Log out</button><MdLogout className="links__logout-icon"></MdLogout></div>
         </div>
      

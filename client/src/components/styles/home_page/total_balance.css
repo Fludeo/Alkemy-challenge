@@ -1,3 +1,9 @@
+
+.balance__container{
+    width: 100%;
+    height: 100%;
+}
+
 .balance__header{
     color: var(--text-secondary);
 }
@@ -7,11 +13,14 @@
     color: var(--color-succes);
     font-size: 5rem;
 }
+.balance__number-negative{
+    text-align: right;
+    color: var(--color-danger);
+    font-size: 5rem;
 
-.balance__container{
-    width: 100%;
-    height: 50%;
 }
+
+
 
 .balance__button-container{
     width: 100%;
@@ -39,3 +48,26 @@
     box-shadow: 0 10px 20px 0 rgb(51, 119, 245 , 0.5);
    
 }   
+
+
+@media (max-width: 900px) {
+
+    .balance__header{
+        font-size: 2rem;
+    }
+    .balance__number{
+      
+        font-size: 2.5rem;
+       
+    }
+    .balance__number-negative{
+       
+        
+    
+    }
+    .balance__button{
+
+    width: 95%;
+    height: 4rem;
+}   
+}

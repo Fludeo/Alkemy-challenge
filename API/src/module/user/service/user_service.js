@@ -61,4 +61,11 @@ module.exports =  class UserService {
         
         return await this.userRepository.addRecord(record,user)
     }
+
+    async getRecords(user){
+        const userWithRecords = await this.userRepository.getRecords(user)
+       
+        return  userWithRecords.records
+
+    }
 }

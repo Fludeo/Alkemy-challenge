@@ -44,14 +44,14 @@ const NewRecordForm =({closeForm,handleRecordSubmit,UpdateForm,formFields}:props
         </div>
         {checkBox.outgo&&<select onChange={(e)=>UpdateForm({...formFields,category:e.currentTarget.value})}  className='new-record-form__input'>
             <option value="">Choose category</option>
-            <option value="food">Food</option>
-            <option value="clothes">Clothes</option>
-            <option value="appliances">Appliances</option>
-            <option value="services">Services</option>
-            <option value="clothes">Consumer electronics</option>
-            <option value="entertainment">Entertainment</option>
-            <option value="hobby">Hobby</option>
-            <option value="taxes">Taxes</option>
+            <option value="Food">Food</option>
+            <option value="Clothes">Clothes</option>
+            <option value="Appliances">Appliances</option>
+            <option value="Services">Services</option>
+            <option value="Consumer electronics">Consumer electronics</option>
+            <option value="Entertainment">Entertainment</option>
+            <option value="Hobby">Hobby</option>
+            <option value="Taxes">Taxes</option>
         </select>}
         {checkBox.income&&<select onChange={(e)=>UpdateForm({...formFields,category:e.currentTarget.value})}  className='new-record-form__input'>
             <option value="">Choose category</option>

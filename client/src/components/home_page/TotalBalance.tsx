@@ -12,15 +12,17 @@ type props ={
     token:string
 }
 const TotalBalance = ({token,buttonOnclick}:props) =>{
-const [data,setData] = useState<string>('')
+const [balance,setBalance] = useState<number>(0)
 const location = useLocation()
+
+console.log(balance)
 
 useEffect(()=>{
     if(token!==''){
     fetch('/record/balance',{ method: 'GET',
               headers: {
                 'Authorization' :`Bearer ${token}`,
-              }, }).then(res=>res.json()).then((res)=>setData(res.balance)).catch(err=>console.log(err))}
+              }, }).then(res=>res.json()).then((res)=>res.balance?setBalance(Number(res.balance)):setBalance(0)).catch(err=>console.log(err))}
 },[token,location])
 
 
@@ -29,7 +31,7 @@ useEffect(()=>{
         <div>
          <div className="balance__container">
             <h1 className="balance__header">Your balance</h1>
-            <h1 className="balance__number" >{USDConverter(Number(data))}</h1>
+            <h1 className={balance>=0?"balance__number":"balance__number-negative"} >{USDConverter(balance)}</h1>
          </div>
          <div className="balance__button-container">
             <button onClick={buttonOnclick} className="balance__button balance__button--hover">New Record</button>

@@ -12,7 +12,7 @@ const SetDataAssociations = require('./data_association');
 const dbConfig = ()=>{
     const sequelize = new Sequelize({
     dialect: 'sqlite',
-    storage: './data/database.db'
+    storage: './data/database4.db'
   });
 return sequelize
 }

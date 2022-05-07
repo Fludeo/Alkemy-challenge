@@ -27,7 +27,7 @@ module.exports =  class UserController {
     configureRoutes(app) {
         const BASEROUTE = this.BASE_ROUTE;
         app.post(`${BASEROUTE}/signup`, this.signUp.bind(this));
-        app.get(`${BASEROUTE}/info`,this.authService.authenticateToken,this.info.bind(this));
+        app.get(`${BASEROUTE}/records`,this.authService.authenticateToken,this.getRecords.bind(this));
         app.get(`${BASEROUTE}/:id`,this.authService.authenticateToken, this.getUserById.bind(this));
        
         
@@ -52,11 +52,15 @@ module.exports =  class UserController {
  * @param {import('Express').Response} res 
  */
 
-     async info(req,res,next){
+     async getRecords(req,res,next){
+        
         try{
            const user = await this.userService.getUserById(req.user.id)
+          
+           const records = await this.userService.getRecords(user)
+          
            res.status(200)
-           res.json(user.name)
+           res.json({records:records})
         }
         catch(err){
 

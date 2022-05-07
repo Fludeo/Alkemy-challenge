@@ -22,4 +22,13 @@ type RecordFormType = {
     errorMessage:string
 }
 
-export  type {LoginFormType, SignFormType , RecordFormType}
+type Record = {
+    id:number
+    concept:string
+    date:Date
+    type:string
+    category:string
+    amount:number
+}
+
+export  type {LoginFormType, SignFormType , RecordFormType , Record}
