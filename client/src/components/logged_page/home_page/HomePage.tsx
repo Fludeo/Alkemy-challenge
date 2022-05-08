@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import '../styles/home_page/home_page.css'
+import '../../styles/logged_page/home_page/home_page.css'
 import { useNavigate } from "react-router-dom";
-import Modal from "../common/modal";
+import Modal from "../../common/modal";
 import NewRecordForm from "./NewRecordForm";
-import { Record, RecordFormType } from "../../types/types";
+import { RecordFormType } from "../../../types/types";
 import TotalBalance from "./TotalBalance";
-import RecordTable from "../common/RecordTable";
+import RecordTable from "./RecordTable";
 
 
 
@@ -18,7 +18,7 @@ type props = {
 const HomePage = ({token}:props) => {
 const [newRecordModal,setNewRecordModal] = useState<boolean>(false)
 const [newRecordForm ,setNewRecordForm] =useState<RecordFormType>({}as RecordFormType)
-const [tableData,setTableData] = useState<Array<Record>>([])
+
 const navigate = useNavigate()
 
 

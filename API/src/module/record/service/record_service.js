@@ -22,6 +22,11 @@ module.exports =  class RecordService   {
      await this.recordRepository.addRecord(record,user)
     
   }
+  async  getRecords(query){
+  
+   return await this.recordRepository.getRecords(query)
+    
+  }
 
   async getRecordById (recordId) {
    return await  this.recordRepository.getRecordById(recordId)
@@ -39,17 +44,23 @@ module.exports =  class RecordService   {
   }
 
   async getBalance(user){
+
     const allRecords = await this.recordRepository.getAll(user)
 
-    const balance = allRecords.reduce(balanceReducer)
+    const balance = allRecords.reduce(balanceReducer,{amount:0})
+
 
     return await balance.amount
   }
 
 }
 
+
 const balanceReducer =(prev,current)=>{
-  const result =  current.type==='income'? prev.amount+current.amount : prev.amount-current.amount
+
+  let result=prev.amount;
+
+  current.type=="income"? result+=current.amount : result-=current.amount
 
   return {amount:result}
 

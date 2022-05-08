@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react"
 import { useLocation } from "react-router-dom"
-import { USDConverter } from "../../helper_functions/toCurrency"
+import { USDConverter } from "../../../helper_functions/toCurrency"
 
 
-import '../styles/home_page/total_balance.css'
+import '../../styles/logged_page/home_page/total_balance.css'
 
 
 
@@ -22,7 +22,9 @@ useEffect(()=>{
     fetch('/record/balance',{ method: 'GET',
               headers: {
                 'Authorization' :`Bearer ${token}`,
-              }, }).then(res=>res.json()).then((res)=>res.balance?setBalance(Number(res.balance)):setBalance(0)).catch(err=>console.log(err))}
+              }, }).then(res=>res.json()).then((res)=>res.balance
+              ?setBalance(Number(res.balance)):setBalance(0))
+              .catch(err=>console.log(err))}
 },[token,location])
 
 

@@ -27,8 +27,7 @@
     height: 50%;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    
 }
 .balance__button{
     cursor: pointer;
@@ -61,13 +60,14 @@
        
     }
     .balance__number-negative{
-       
+        font-size: 2.5rem;
         
     
     }
     .balance__button{
-
+    align-self:center;    
     width: 95%;
     height: 4rem;
+    
 }   
 }

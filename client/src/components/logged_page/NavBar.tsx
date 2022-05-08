@@ -1,8 +1,8 @@
 import React from "react";
-import '../styles/home_page/nav_bar.css'
+import '../styles/logged_page/nav_bar.css'
 import { RiDatabase2Fill } from 'react-icons/ri'
 import {MdLogout} from 'react-icons/md'
-import { useNavigate } from "react-router-dom";
+import {useNavigate } from "react-router-dom";
 
 
 type props = {
@@ -42,8 +42,8 @@ const logout=(e: React.MouseEvent<HTMLElement, MouseEvent>)=>{
             <span className="logo__span">Finances</span>
         </div>
         <div className="links" >
-                 <div className="links__link links__link--hover"><p className="links__text" >Home</p></div>
-                 <div className="links__link links__link--hover"><p className="links__text" >Crud</p></div>
+                <div onClick={()=>navigate('/logged/home')} className="links__link links__link--hover"> <p className="links__text" >Home</p></div>
+                 <div onClick={()=>navigate('/logged/crud')} className="links__link links__link--hover"><p className="links__text" >Crud</p></div>
                  <div onClick={(e)=>logout(e)} className="links__logout"><button  className="links__logout-button">Log out</button><MdLogout className="links__logout-icon"></MdLogout></div>
         </div>
      

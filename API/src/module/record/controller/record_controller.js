@@ -22,14 +22,11 @@ module.exports =  class RecordController {
  */
     configureRoutes(app) {
         const BASEROUTE = this.BASE_ROUTE;
-       
         app.get(`${BASEROUTE}/balance` , this.authService.authenticateToken , this.getBalance.bind(this));
-        app.get(`${BASEROUTE}/all`, this.authService.authenticateToken,this.getRecordById.bind(this));
+        app.get(`${BASEROUTE}/get/:quantity?/type/:type?/category/:category?`, this.authService.authenticateToken,this.getRecords.bind(this));
         app.delete(`${BASEROUTE}/delete/:id`,this.authService.authenticateToken, this.deleteRecordById.bind(this));
         app.post(`${BASEROUTE}/new`,this.authService.authenticateToken, this.addRecord.bind(this));
         app.post(`${BASEROUTE}/update`,this.authService.authenticateToken, this.getRecordById.bind(this));
-        app.get(`${BASEROUTE}/filter/by:by`, this.authService.authenticateToken,this.getRecordById.bind(this));
-
       }
 
 
@@ -46,7 +43,36 @@ module.exports =  class RecordController {
 
         res.sendStatus(200)
     }
+
     /**
+ * 
+ * @param {import('Express').Request} req 
+ * @param {import('Express').Response} res 
+ */
+
+     async getRecords(req,res,next){
+
+
+           let filters ={where:{}};
+            req.params.quantity&&(filters.limit=req.params.quantity)
+            req.user.id!==undefined&&(filters.where.user_id=req.user.id)
+            req.params.type!==undefined&&(filters.where.type=req.params.type)
+            req.params.category!==undefined&&(filters.where.category=req.params.category)
+
+
+        try{
+            const records = await this.recordService.getRecords(filters)
+            
+         res.status(200)
+         res.json({records:records})
+        }
+        catch(err){
+            next(err)
+        }
+    }
+
+
+/**
  * 
  * @param {import('Express').Request} req 
  * @param {import('Express').Response} res 

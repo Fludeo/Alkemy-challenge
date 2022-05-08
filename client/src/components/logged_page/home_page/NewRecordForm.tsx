@@ -1,7 +1,8 @@
 
 import React, {useState } from 'react';
-import { RecordFormType } from '../../types/types';
-import'../styles/home_page/new_record_form.css'
+import getCategories from '../../../helper_functions/getCategories';
+import { RecordFormType } from '../../../types/types';
+import'../../styles/logged_page/home_page/new_record_form.css'
 
 
 type props = {
@@ -44,20 +45,11 @@ const NewRecordForm =({closeForm,handleRecordSubmit,UpdateForm,formFields}:props
         </div>
         {checkBox.outgo&&<select onChange={(e)=>UpdateForm({...formFields,category:e.currentTarget.value})}  className='new-record-form__input'>
             <option value="">Choose category</option>
-            <option value="Food">Food</option>
-            <option value="Clothes">Clothes</option>
-            <option value="Appliances">Appliances</option>
-            <option value="Services">Services</option>
-            <option value="Consumer electronics">Consumer electronics</option>
-            <option value="Entertainment">Entertainment</option>
-            <option value="Hobby">Hobby</option>
-            <option value="Taxes">Taxes</option>
+            {getCategories().outgo.map(category=><option key={category} value={category}>{category}</option>)}
         </select>}
         {checkBox.income&&<select onChange={(e)=>UpdateForm({...formFields,category:e.currentTarget.value})}  className='new-record-form__input'>
             <option value="">Choose category</option>
-            <option value="salary">Salary</option>
-            <option value="freelance job">Freelance job</option>
-            <option value="investments returns">Investments returns</option>
+            {getCategories().income.map(category=><option key={category} value={category}>{category}</option>)}
         </select>}
         <label className='new-record-form__label' >Date</label>
         <input onChange={(e)=>UpdateForm({...formFields, date: new Date(e.currentTarget.value)})} 

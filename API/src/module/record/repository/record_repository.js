@@ -27,6 +27,17 @@ module.exports =  class RecordRepository {
 
      }
 
+     async getRecords (query){
+      
+      console.log(query)
+      const records = await this.recordModel.findAll({...query})
+      console.log(records)
+      return await records
+
+
+    }
+
+
      async getRecordById (recordId){
 
       const record = await this.recordModel.findByPk(recordId)

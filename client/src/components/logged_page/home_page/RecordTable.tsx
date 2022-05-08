@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react"
 import { useLocation } from "react-router-dom"
 
-import { USDConverter } from "../../helper_functions/toCurrency"
-import { Record } from "../../types/types"
-import '../styles/common/record_table.css'
+import { USDConverter } from "../../../helper_functions/toCurrency"
+import { Record } from "../../../types/types"
+import '../../styles/logged_page/home_page/record_table.css'
 
 
 type props ={
@@ -14,10 +14,9 @@ const RecordTable = ({token}:props) =>{
 const [tableData,setTableData] = useState<Array<Record>|null>(null)
 const location = useLocation()
  
-
 useEffect(()=>{
     if(token===''){return}
-    fetch('/user/records',{ method: 'GET',
+    fetch('/record/get/10/type/category/',{ method: 'GET',
     headers: {
     'Authorization' :`Bearer ${token}`,
     }})

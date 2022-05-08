@@ -11,15 +11,17 @@ import LoginForm from './LoginForm'
 
 type props = {
     setAccessToken:(token:string)=>void
+    token:string
 }   
 
-const LoginPage = ({setAccessToken}:props) => {
+const LoginPage = ({setAccessToken,token}:props) => {
   const [loginForm, setLoginForm]  = useState<LoginFormType>({}as LoginFormType)
   const [signupForm,setSignupForm]  = useState<SignFormType>({password:'' ,repeatPassword:''}as SignFormType)
   const [modalTrigger,setModalTrigger] = useState<boolean> (false)
   const navigate = useNavigate()
 
-
+  //check if user is Logged
+  if(token!=='') navigate('/logged/home',{replace: true})
 
 
 
@@ -89,19 +91,9 @@ const handleSignup = async (e:React.MouseEvent<HTMLButtonElement, MouseEvent>) =
         }
          
         
-const isLogged = (token:string) =>{
-    setAccessToken(token)
-    navigate('/logged/home', {replace: true})
-       }
 
-    useEffect(()=>{
-          fetch('/auth/session',{method:'POST'}).then(res=>res.json())
-          .then(res=>res.accessToken!==undefined?
-            isLogged(res.accessToken)
-            :navigate('/'))
-            .catch(err=>{console.log(err)})
-      },[])
- 
+
+
     return(
      <div className="login-page">
          <section className="login-page__section-header">

@@ -68,7 +68,6 @@ module.exports =  class UserRepository {
         async getRecords(user){
           
             const userWithRecords = await this.userModel.findByPk(user.id,{include:'records',order:[['records','createdAt','DESC']]})
-            console.log(userWithRecords)
             return  fromUserModelToEntity(userWithRecords)
         }
     
