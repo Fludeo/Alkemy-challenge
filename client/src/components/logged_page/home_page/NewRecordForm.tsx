@@ -23,7 +23,7 @@ const NewRecordForm =({closeForm,handleRecordSubmit,UpdateForm,formFields}:props
     return(
     <form className="new-record-form">
         <label className='new-record-form__label' >Concept</label>
-        <input onChange={(e)=>UpdateForm({...formFields, concept: e.currentTarget.value})} 
+        <input onChange={(e)=>UpdateForm({...formFields, concept: e.currentTarget.value.trim()})} 
         className='new-record-form__input' type="text"  />
 
         <label className='new-record-form__label' >Amount</label>

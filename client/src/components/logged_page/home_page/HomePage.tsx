@@ -74,7 +74,10 @@ if(token===''){
             <RecordTable token={token} ></RecordTable>
         </section>
         <Modal trigger={newRecordModal}>
-        <NewRecordForm handleRecordSubmit ={(e:React.MouseEvent<HTMLButtonElement, MouseEvent>)=>handleRecordSubmit(e)} formFields={newRecordForm} UpdateForm={(payload:RecordFormType)=>setNewRecordForm({...payload, errorMessage:''})} closeForm={()=>setNewRecordModal(false)}></NewRecordForm>
+        <NewRecordForm handleRecordSubmit ={(e:React.MouseEvent<HTMLButtonElement, MouseEvent>)=>handleRecordSubmit(e)} 
+                       formFields={newRecordForm} 
+                       UpdateForm={(payload:RecordFormType)=>setNewRecordForm({...payload, errorMessage:''})} 
+                       closeForm={()=>setNewRecordModal(false)}></NewRecordForm>
         </Modal>
     </main>
     

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react"
 import { useLocation } from "react-router-dom"
+import FormatDate from "../../../helper_functions/formatDate"
 
 import { USDConverter } from "../../../helper_functions/toCurrency"
 import { Record } from "../../../types/types"
@@ -41,7 +42,7 @@ useEffect(()=>{
           <div className="mobile-table__card " key={record.id}>
                 <div className="mobile-table__card-amount">
                     <p>{USDConverter(record.amount)}</p>
-                    <p>{new Date(record.date).toLocaleDateString()}</p>
+                    <p>{FormatDate(record.date)}</p>
                 </div>
                 <div className="mobile-table__card-concept">
                     <p>{record.concept}</p>
@@ -71,7 +72,7 @@ useEffect(()=>{
                     <td>{USDConverter(record.amount)}</td>
                     <td><p className={record.type==='income'?"table__type-income":"table__type-outcome"}>{record.type}</p></td>
                     <td>{record.category}</td>
-                    <td>{new Date(record.date).toLocaleDateString()}</td>
+                    <td>{FormatDate(record.date)}</td>
                 </tr>
             )}
             </tbody>

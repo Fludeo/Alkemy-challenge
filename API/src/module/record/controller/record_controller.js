@@ -26,23 +26,34 @@ module.exports =  class RecordController {
         app.get(`${BASEROUTE}/get/:quantity?/type/:type?/category/:category?`, this.authService.authenticateToken,this.getRecords.bind(this));
         app.delete(`${BASEROUTE}/delete/:id`,this.authService.authenticateToken, this.deleteRecordById.bind(this));
         app.post(`${BASEROUTE}/new`,this.authService.authenticateToken, this.addRecord.bind(this));
-        app.post(`${BASEROUTE}/update`,this.authService.authenticateToken, this.getRecordById.bind(this));
+        app.put(`${BASEROUTE}/update`,this.authService.authenticateToken, this.updateRecord.bind(this));
       }
 
 
 
-/**
+
+
+    /**
  * 
  * @param {import('Express').Request} req 
  * @param {import('Express').Response} res 
  */
 
-    async getRecordById(req,res){
-      
+     async updateRecord(req,res,next){
+        const recordDto = new RecordDto(req.body)
+
+        try {
+            recordDto.validate()
+           await this.recordService.updateRecord(fromRecordDtoToEntity(recordDto))
+            res.sendStatus(200)
+        } catch (err) {
+            next(err)
+        }
 
 
-        res.sendStatus(200)
+       
     }
+
 
     /**
  * 

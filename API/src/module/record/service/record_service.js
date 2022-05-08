@@ -22,6 +22,19 @@ module.exports =  class RecordService   {
      await this.recordRepository.addRecord(record,user)
     
   }
+  async deleteRecord(recordId){
+    return await this.recordRepository.deleteRecord(recordId)
+  }
+
+
+  async updateRecord(record){
+    if(!(record instanceof Record)){
+      throw new RecordNotDefinedError('object is not defined as instance of Record')
+  }
+    return await this.recordRepository.updateRecord(record)
+  }
+
+
   async  getRecords(query){
   
    return await this.recordRepository.getRecords(query)
@@ -34,13 +47,12 @@ module.exports =  class RecordService   {
 
 
   async deleteRecordById (recordId,user) {
-    const recordToDelete = await this.getRecordById(recordId)
-    if (recordToDelete.userId === user.id){
-      this.recordRepository.deleteRecordById(recordId)
-    }
-    else{
+    const recordToDelete = await this.recordRepository.getRecordById(recordId)
+    if (await recordToDelete.userId !== user.id){
       throw new RecordDoesNotExistError ('Record does not exist in this user')
+  
     }
+    await  this.recordRepository.deleteRecordById(recordId)
   }
 
   async getBalance(user){
@@ -54,6 +66,8 @@ module.exports =  class RecordService   {
   }
 
 }
+
+
 
 
 const balanceReducer =(prev,current)=>{

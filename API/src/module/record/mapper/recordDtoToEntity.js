@@ -7,6 +7,6 @@ const Record = require('../entity/record_entity')
 
 module.exports = function FromRecordDtoToEntity({id,concept,date,amount,type,category}){
 
-    const record = new Record(id,concept,amount,type,category,date)
+    const record = new Record(id,concept,amount,type,category,date,undefined)
     return record
 }

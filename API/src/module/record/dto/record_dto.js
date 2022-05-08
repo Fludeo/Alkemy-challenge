@@ -14,7 +14,8 @@ module.exports = class RecordDto {
  */
 
 
-constructor ({concept,amount,type,category,date}){
+constructor ({id,concept,amount,type,category,date}){
+this.id = id
 this.concept = concept
 this.amount = amount
 this.type = type
@@ -25,12 +26,12 @@ this.date = date
 
 
 validate(){
-
-    if(this.concept===undefined||
-        this.amount===undefined||
-        this.type===undefined||
-        this.category===undefined||
-        this.date===undefined){
+    console.log(this.concept)
+    if(this.concept===undefined||this.concept===''||
+        this.amount===undefined||this.amount===''||
+        this.type===undefined||this.type===''||
+        this.category===undefined||this.category===''||
+        this.date===undefined||this.date===''){
 
         throw new RecordValidationError('No blank fields')
     }

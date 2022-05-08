@@ -27,11 +27,23 @@ module.exports =  class RecordRepository {
 
      }
 
+     async deleteRecord(recordId){
+      await this.recordModel.destroy({where:{recordId}})
+     
+    }
+
+     async updateRecord(record){
+       await this.recordModel.update(record,{where:{id:record.id}})
+    
+    }
+
      async getRecords (query){
-      
-      console.log(query)
-      const records = await this.recordModel.findAll({...query})
-      console.log(records)
+      query.order = [
+        ['createdAt', 'DESC']
+      ]
+     
+      const records = await this.recordModel.findAll(query)
+    
       return await records
 
 
@@ -41,7 +53,6 @@ module.exports =  class RecordRepository {
      async getRecordById (recordId){
 
       const record = await this.recordModel.findByPk(recordId)
-    
       return fromRecordModelToEntity(record)
     
 

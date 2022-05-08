@@ -50,15 +50,15 @@ const [match,setMatch] = useState<{match:boolean,blank:boolean}>({match:false,bl
     return(
     <form className="signup-form">
         <label className='signup-form__label' >Name</label>
-        <input onChange={(e)=>UpdateForm({...formFields, name: e.currentTarget.value})} 
+        <input onChange={(e)=>UpdateForm({...formFields, name: e.currentTarget.value.trim()})} 
         className='signup-form__input' type="text"  />
 
         <label className='signup-form__label' >Email</label>
-        <input onChange={(e)=>UpdateForm({...formFields, email: e.currentTarget.value})} 
+        <input onChange={(e)=>UpdateForm({...formFields, email: e.currentTarget.value.trim()})} 
         className='signup-form__input' type="text"  />
 
         <label className='signup-form__label' >Password </label>
-        <input onChange={(e)=>UpdateForm({...formFields, password: e.currentTarget.value})}
+        <input onChange={(e)=>UpdateForm({...formFields, password: e.currentTarget.value.trim()})}
           className={match.blank?
             'signup-form__input'
             :
@@ -69,7 +69,7 @@ const [match,setMatch] = useState<{match:boolean,blank:boolean}>({match:false,bl
          type="password" />
 
         <label className='signup-form__label ' >Repeat password </label>
-        <input onChange={(e)=>UpdateForm({...formFields, repeatPassword: e.currentTarget.value})}
+        <input onChange={(e)=>UpdateForm({...formFields, repeatPassword: e.currentTarget.value.trim()})}
          className={match.blank?'signup-form__input'
          :
          match.match?

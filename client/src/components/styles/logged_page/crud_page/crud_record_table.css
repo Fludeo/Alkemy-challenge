@@ -1,26 +1,55 @@
+
+
+
+
 .crud-table-container{
     width:100%;
     display: flex;
     flex-direction: column;
     gap: 1rem;
-    height: fit-content;
-    
+    height: 100%;
     border-radius: .5rem;
-    
+   
 }
 .crud-mobile-table{
     display: none;
-  
+    
 }
 
 
 
 .crud-table__filter-container{
-    
+    margin:1rem ;
     display: flex;
     justify-content: right;
+    justify-content: space-between;
 
 }
+
+.table__new-button{
+    width: 8rem;
+    height: 2.5rem;
+    font-weight: bold;
+    font-size: large;
+    border-radius: .5rem;
+    background-color: var(--color-primary);
+    box-shadow: 0 10px 20px 0 rgb(83 8 223 / 50%) ;
+    border: 2px solid var(--color-primary);
+    color: white;
+}
+
+.table__new-button--hover:hover{
+    background-color: var(--color-selected);
+    box-shadow: 0 10px 20px 0 rgb(51 119 245 / 50%) ;
+    border: 2px solid var(--color-selected);
+}
+
+.crud-table-wrapper{
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+}
+
 .crud-table__filter{
     font-size: large;
     background-color: #00000010;
@@ -39,16 +68,24 @@
     border-collapse: collapse;
     text-align: left;
     font-size: small;
+    
+
 }
 .crud-table th {
     padding: 0 1rem;
+    background-color: white;
 }
 .crud-table td {
     padding: 0 1rem;
+  
 }
 
 
 .crud-table__head{
+    z-index: 2;
+    position: sticky;
+    top:0 ;
+    
     height: 2rem;
     font-weight: bold;
     color: var(--color-primary);
@@ -90,6 +127,38 @@
 
 
 
+
+.crud-table__edit-icon{
+    position: relative;
+   
+    top: .2rem;
+    border-radius: .2rem;
+    width: 1rem;
+    height: 1rem;
+    color: var(--color-selected);
+}
+.crud-table__delete-icon{
+    position: relative;
+    
+    top: .2rem;
+    border-radius: .2rem;
+    width: 1rem;
+    height: 1rem;
+    color: var(--color-danger);
+}
+
+.crud-table__edit-icon--hover:hover{
+    color: white;
+    background-color: var(--color-selected);
+    
+}
+.crud-table__delete-icon--hover:hover{
+ 
+    color: white;
+    background-color: var(--color-selected);
+}
+
+
 @media (max-width: 900px) {
 
 
@@ -104,6 +173,13 @@
         display: none;
        
     }
+
+    .crud-table-container{
+      
+        gap: 0rem;
+      
+       
+    }
     .crud-mobile-table{
         display: flex;
         flex-direction: column;
@@ -113,6 +189,10 @@
 
     }
     .crud-mobile-table__head{
+        position: sticky;
+        top:0 ;
+        z-index: 2;
+        background-color: white;
         display: flex;
         flex-direction: row;
         width:100%;
@@ -164,6 +244,9 @@
         text-align: left;
         width:35%;
         padding: .5rem 1rem;
+        display: flex;
+        flex-direction: row;
+        gap: .5rem;
         
     }
 
@@ -204,4 +287,52 @@
 
 
 
+    .crud-table__filter-container{
+        margin:.5rem ;
+    }
+    .table__new-button{
+     
+        box-shadow: none;
+    
+    }
+    .table__new-button--hover:hover{
+     
+        box-shadow: none;
+    
+    }
+    .crud-table__filter{
+        font-size: small;
+        background-color: #00000010;
+        border-radius: .2rem;
+        border: 1px solid #00000023;
+        outline-color: var(--color-primary);
+        width: 8rem;
+        padding: .2rem;
+    
+    }
+
+
+    .crud-table__edit-icon{
+       
+       position: relative;
+       width: 1.5rem;
+       height: 1.5rem;
+
+       margin: .2rem;
+       
+      
+    }
+    .crud-table__delete-icon{
+       
+        position: relative;
+        width: 1.5rem;
+        height: 1.5rem;
+        margin: .2rem;
+        
+       
+    }
+
+
+
 }
+

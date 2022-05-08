@@ -1,0 +1,110 @@
+.delete-form{
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    width: 20rem;
+    border-radius: .5rem;
+    padding: 3rem;
+    gap: 1rem;
+}
+.delete-form__header{
+    color: var(--text-primary);
+}
+.delete-form__label{
+    color: var(--text-secondary);
+}
+.delete-form__input{
+    font-size: large;
+    background-color: #00000010;
+    border-radius: .2rem;
+    border: 1px solid #00000023;
+    outline-color: var(--color-primary);
+    padding: .5rem;
+
+}
+
+
+
+
+
+
+
+.delete-form__accept-button{
+    width: 7rem;
+    height: 3.5rem;
+    font-weight: bold;
+    font-size: large;
+    border-radius: .5rem;
+    background-color: var(--color-primary);
+    box-shadow: 0 10px 20px 0 rgb(83 8 223 / 50%) ;
+    border: 2px solid var(--color-primary);
+    color: white;
+
+}
+
+.delete-form__accept-button--hover:hover{
+
+    background-color: var(--color-selected);
+    box-shadow: 0 10px 20px 0 rgb(51 119 245 / 50%) ;
+    border: 2px solid var(--color-selected);
+
+
+}
+
+.delete-form__cancel-button{
+  
+    width: 7rem;
+    height: 3.5rem;
+    font-weight: bold;
+    font-size: large;
+    border-radius: .5rem;
+    background-color: white;
+  
+    border: 2px solid var(--color-primary);
+    color: var(--color-primary);
+
+}
+
+.delete-form__cancel-button--hover:hover{
+
+    background-color: var(--color-selected);
+    box-shadow: 0 10px 20px 0 rgb(51 119 245 / 50%) ;
+    border: 2px solid var(--color-selected);
+    color: white;
+
+
+
+}
+
+
+
+.delete-form__button-container{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 1rem;
+    gap:1rem ;
+}
+.delete-form__error{
+    
+    color: var(--color-danger);
+}
+
+@media (max-width: 900px) {
+
+
+
+    .delete-form__accept-button{
+        align-self: center;
+    }
+    .delete-form__button-container{
+
+        gap: 0;
+        margin-top: .5rem;
+         
+    }
+  
+   
+
+}

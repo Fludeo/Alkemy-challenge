@@ -16,6 +16,7 @@ module.exports = class Record {
       type,
       category,
       date,
+      userId,
       createdAt, 
       updatedAt,
       deletedAt,
@@ -26,6 +27,7 @@ module.exports = class Record {
       this.type = type;
       this.category = category;
       this.date = date;
+      this.userId= userId;
       this.createdAt = createdAt;
       this.updatedAt = updatedAt;
       this.deletedAt = deletedAt;
