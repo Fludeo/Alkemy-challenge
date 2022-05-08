@@ -23,6 +23,7 @@ const [tableData,setTableData] = useState<Array<Record>|null>(null)
 const [filter,setFilter] = useState<string>('')
 const [editModal,setEditModal] = useState<boolean>(false)
 const [deleteModal,setDeleteModal] = useState<boolean>(false)
+const [newRecordModal,setNewRecordModal] = useState<boolean>(false)
 const [formData,setFormData] = useState<RecordFormType>({} as RecordFormType)
 const location = useLocation()
 const navigate = useNavigate()
@@ -34,6 +35,37 @@ const navigate = useNavigate()
 
 
 
+const NewRecord = async (e:React.MouseEvent<HTMLButtonElement, MouseEvent>) =>{
+    e.preventDefault()
+
+    
+
+    try{
+        const rawResponse = await fetch(`/record/new/`,{
+            method: 'POST',
+            headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json',
+              'Authorization' :`Bearer ${token}`,
+            },
+            body: JSON.stringify(formData)
+          }); 
+          if(rawResponse.ok){
+       
+          setNewRecordModal(false)
+          setFormData({} as RecordFormType)
+          navigate(location.pathname)
+        }
+        else{
+            const content = await rawResponse.json()
+            setFormData({...formData, errorMessage:content.message})
+            throw new Error(content.message)
+        }
+        }
+        catch(err){
+            console.log(err)
+        }
+}
 
 
 
@@ -51,6 +83,7 @@ const EditRecord = async (e:React.MouseEvent<HTMLButtonElement, MouseEvent>) =>{
           if(rawResponse.ok){
        
           setEditModal(false)
+          setFormData({} as RecordFormType)
           navigate(location.pathname)
         }
         else{
@@ -76,6 +109,7 @@ const handleDeleteSubmit= async (e:React.MouseEvent<HTMLButtonElement, MouseEven
           if(rawResponse.ok){
        
           setDeleteModal(false)
+          setFormData({} as RecordFormType)
           navigate(location.pathname)
         }
         else{
@@ -106,7 +140,7 @@ useEffect(()=>{
     return(
         <div className="crud-table-container">
             <div className="crud-table__filter-container">
-                <button className="table__new-button table__new-button--hover">New {type}</button>
+                <button onClick={()=>setNewRecordModal(true)} className="table__new-button table__new-button--hover">New {type}</button>
                <select defaultValue={filter} onChange={(e)=>setFilter(e.currentTarget.value)} className="crud-table__filter">
               <option  value={''}>No filter</option>
             {getCategories()[type].map(category=><option key={category} value={category}>{category}</option>)}             
@@ -175,18 +209,29 @@ useEffect(()=>{
             )}
             </tbody>
         </table>
+        <Modal trigger={newRecordModal}>
+                <EditRecordForm 
+                        UpdateForm={(payload: RecordFormType) => setFormData(payload)}
+                        closeForm={() => { setFormData({} as RecordFormType)
+                                        setNewRecordModal(false)}}
+                        handleSubmit={(e) => NewRecord(e)}
+                        type={type} formData={{...formData, id:undefined, type:type}}></EditRecordForm>
+        </Modal>
         <Modal trigger={editModal}>
                 <EditRecordForm 
                 UpdateForm={(payload:RecordFormType)=>setFormData(payload)} 
-                formData={formData} closeForm={() => setEditModal(false)} 
-                handleEditSubmit={(e)=>EditRecord(e) }  
+                formData={formData} 
+                closeForm={() => { setFormData({} as RecordFormType)
+                                    setEditModal(false)}} 
+                handleSubmit={(e)=>EditRecord(e) }  
                 type={type}></EditRecordForm>
         </Modal>
         <Modal trigger={deleteModal}>
             <ConfirmDeleteForm 
                 handleDelete={(e)=>handleDeleteSubmit(e)} 
                 formData={formData} 
-                close={()=>setDeleteModal(false)}></ConfirmDeleteForm>
+                close={()=>{setFormData({} as RecordFormType)
+                            setDeleteModal(false)}}></ConfirmDeleteForm>
          </Modal>
         </div>
     

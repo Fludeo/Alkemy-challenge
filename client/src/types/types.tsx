@@ -13,7 +13,7 @@ type SignFormType = {
 }
 
 type RecordFormType = {
-    id:number
+    id:number|undefined
     concept:string
     date:Date
     type:string

@@ -10,11 +10,22 @@ const SetDataAssociations = require('./data_association');
 
 
 const dbConfig = ()=>{
+
+  if(process.env.PROJECT_STATUS === 'production'){
     const sequelize = new Sequelize({
     dialect: 'sqlite',
-    storage: './data/database4.db'
-  });
-return sequelize
+    storage: './data/production_database.db'
+    })
+    return sequelize
+  }
+  else{
+    const sequelize = new Sequelize({
+      dialect: 'sqlite',
+      storage: './data/development_database.db'
+    });
+    return sequelize
+  }
+  
 }
 
 
