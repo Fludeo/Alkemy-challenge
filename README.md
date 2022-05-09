@@ -35,7 +35,7 @@ Tests unitarios (jest), Test integradores (cypress).
 
 Mejoras minimas en en UI para mejor UX  (ej: Al tener éxito cuando se crea un usuario, no hay feedback, solo se cierra el formulario.)
 
-Crear custom hooks o funciones en archivos a parte para hacer Fetchs mas limpios
+Crear custom hooks o funciones en archivos a parte para agregar cache y hacer Fetchs mas limpios 
 
 Agregar otra base de datos mas robusta que sqlite, cuando en el .env la configuración está en producción (MySQL)
  
