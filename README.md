@@ -14,9 +14,11 @@ Para correr el proyecto simplemente hay que abrir 2 terminales (asegurarse de ab
 
 # Detalles
 
-Frontend realizado con ReactJS, TypeScript y CSS para estilos.
+Frontend realizado con ReactJS, TypeScript , CSS para estilos y React-icons
 
 Backend realizado con Express.js , rsdi (paquete para lograr inyección de dependencias) y el ORM Sequelize (sqlite).
+
+Sesiones ,Login y Autenticación implementadas con jsonwebtoken  (access and refresh token strategy)
 
 El proyecto tiene una arquitectura MVC Donde las vistas las provee el cliente que a su vez se comunica con el Modelo a traves de los controladores mediante http Requests y Responses. 
 Nótese que esta comunicación es siempre unidireccional es decir, siempre avanza hacia capas mas profundas y cuando vuelve, vuelve siempre hacia capas mas superficiales:
@@ -34,4 +36,6 @@ Tests unitarios (jest), Test integradores (cypress).
 Mejoras minimas en en UI para mejor UX  (ej: Al tener éxito cuando se crea un usuario, no hay feedback, solo se cierra el formulario.)
 
 Crear custom hooks o funciones en archivos a parte para hacer Fetchs mas limpios
+
+Agregar otra base de datos mas robusta que sqlite, cuando en el .env la configuración está en producción (MySQL)
  
