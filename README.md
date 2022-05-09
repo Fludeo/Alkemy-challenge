@@ -27,9 +27,11 @@ DB---data--->Repository----data---->Service----data----->Controller----Response-
 
 En el archivo  DIconfig.js en la carpeta API/src/config  estan resueltas todas las dependencias del proyecto.  
 
-# Lo quedó sin hacer
+# Lo que quedó sin hacer
 
 Tests unitarios (jest), Test integradores (cypress).
 
 Mejoras minimas en en UI para mejor UX  (ej: Al tener éxito cuando se crea un usuario, no hay feedback, solo se cierra el formulario.)
+
+Crear custom hooks o funciones en archivos a parte para hacer Fetchs mas limpios
  
