@@ -17,10 +17,11 @@
     "sqlite3": "^5.0.5"
   },
   "devDependencies": {
-    "eslint": "^8.14.0"
+    "eslint": "^8.14.0",
+    "jest": "^28.1.0"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "server": "nodemon src/App.js"
   },
   "author": "",
