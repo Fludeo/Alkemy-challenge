@@ -33,21 +33,33 @@ const closeSignupModal= () =>{
 
 const handleLogin = async (e:React.MouseEvent<HTMLButtonElement, MouseEvent>) =>{
     e.preventDefault()
-   
-         fetch(`${process.env.REACT_APP_PUBLIC_URL_API}/auth/login`, {
+    try{
+        const rawResponse = await fetch(`${process.env.REACT_APP_PUBLIC_URL_API}/auth/login`, {
             method: 'POST',
-            mode: 'cors',
             headers: {
               'Accept': 'application/json',
               'Content-Type': 'application/json'
             },
-            body: JSON.stringify(loginForm),
-          }).then(res => res.json())
-            .then((res) =>{setAccessToken(res.accessToken);
-              console.log(res)
-             navigate('/logged/home')} )
-            .catch((err)=>{setLoginForm({...loginForm, errorMessage:err.message});})
-      }
+            body: JSON.stringify(loginForm)
+          });
+          
+          const content = await rawResponse.json()
+          if(rawResponse.ok){
+          setAccessToken(content.accessToken)
+          navigate('/logged/home')
+            }
+        else{
+          
+            setLoginForm({...loginForm, errorMessage:content.message})
+            throw new Error(content.message)
+           }
+        }
+        catch(err){
+            console.log(err)
+            navigate('/')
+        }
+        }
+
 
 const handleSignup = async (e:React.MouseEvent<HTMLButtonElement, MouseEvent>) =>{
             e.preventDefault()
@@ -58,7 +70,6 @@ const handleSignup = async (e:React.MouseEvent<HTMLButtonElement, MouseEvent>) =
             try{
                 const rawResponse = await fetch(`${process.env.REACT_APP_PUBLIC_URL_API}/user/signup`, {
                     method: 'POST',
-                    mode: 'no-cors',
                     headers: {
                       'Accept': 'application/json',
                       'Content-Type': 'application/json'

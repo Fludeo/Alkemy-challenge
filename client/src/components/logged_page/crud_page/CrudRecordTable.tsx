@@ -41,7 +41,7 @@ const NewRecord = async (e:React.MouseEvent<HTMLButtonElement, MouseEvent>) =>{
     
 
     try{
-        const rawResponse = await fetch(`/record/new/`,{
+        const rawResponse = await fetch(`${process.env.REACT_APP_PUBLIC_URL_API}/record/new/`,{
             method: 'POST',
             headers: {
               'Accept': 'application/json',
@@ -74,7 +74,7 @@ const EditRecord = async (e:React.MouseEvent<HTMLButtonElement, MouseEvent>) =>{
     e.preventDefault()
 
     try{
-        const rawResponse = await fetch(`/record/update/`,{ method: 'PUT',
+        const rawResponse = await fetch(`${process.env.REACT_APP_PUBLIC_URL_API}/record/update/`,{ method: 'PUT',
         headers: {
             'Content-Type': 'application/json',    
             'Authorization' :`Bearer ${token}`,
@@ -101,7 +101,7 @@ const handleDeleteSubmit= async (e:React.MouseEvent<HTMLButtonElement, MouseEven
     e.preventDefault()
 
     try{
-        const rawResponse = await fetch(`/record/delete/${formData.id}`,{ method: 'DELETE',
+        const rawResponse = await fetch(`${process.env.REACT_APP_PUBLIC_URL_API}/record/delete/${formData.id}`,{ method: 'DELETE',
         headers: {  
             'Authorization' :`Bearer ${token}`,
         },
@@ -127,7 +127,7 @@ const handleDeleteSubmit= async (e:React.MouseEvent<HTMLButtonElement, MouseEven
 
 useEffect(()=>{
     if(token==='')return
-    fetch(`/record/get/type/${type}/category/${filter}`,{ method: 'GET',
+    fetch(`${process.env.REACT_APP_PUBLIC_URL_API}/record/get/type/${type}/category/${filter}`,{ method: 'GET',
     headers: {
     'Authorization' :`Bearer ${token}`,
     }})

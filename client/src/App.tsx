@@ -22,7 +22,7 @@ function App() {
 
   const refreshSession = async()=>{
    try{
-    const response =  await fetch('/auth/session',{method:'POST'})
+    const response =  await fetch(`${process.env.REACT_APP_PUBLIC_URL_API}/auth/session`,{method:'POST'})
     const token = await response.json()
    
     setToken( await token.accessToken)
@@ -48,7 +48,7 @@ function App() {
     //token refresh after 14min. the access token has a 15 min duration.
    const refresh = setTimeout(refreshSession,1000*60*14)
    if(token===''){
-   fetch('/auth/session',{method:'POST'}).then(res=>res.json())
+   fetch(`${process.env.REACT_APP_PUBLIC_URL_API}/auth/session`,{method:'POST'}).then(res=>res.json())
         .then(res=>res.accessToken!==undefined?
           isLogged(res.accessToken)
           :navigate('/'))

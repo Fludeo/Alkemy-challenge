@@ -17,7 +17,7 @@ const location = useLocation()
  
 useEffect(()=>{
     if(token===''){return}
-    fetch('/record/get/10/type/category/',{ method: 'GET',
+    fetch(`${process.env.REACT_APP_PUBLIC_URL_API}/record/get/10/type/category/`,{ method: 'GET',
     headers: {
     'Authorization' :`Bearer ${token}`,
     }})

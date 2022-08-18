@@ -19,7 +19,7 @@ console.log(balance)
 
 useEffect(()=>{
     if(token!==''){
-    fetch('/record/balance',{ method: 'GET',
+    fetch(`${process.env.REACT_APP_PUBLIC_URL_API}/record/balance`,{ method: 'GET',
               headers: {
                 'Authorization' :`Bearer ${token}`,
               }, }).then(res=>res.json()).then((res)=>res.balance

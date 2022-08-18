@@ -28,7 +28,7 @@ const handleRecordSubmit = async (e: React.MouseEvent<HTMLButtonElement, MouseEv
 e.preventDefault()
 
 try{
-    const response = await fetch('/record/new', {
+    const response = await fetch(`${process.env.REACT_APP_PUBLIC_URL_API}/record/new`, {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
