@@ -33,35 +33,21 @@ const closeSignupModal= () =>{
 
 const handleLogin = async (e:React.MouseEvent<HTMLButtonElement, MouseEvent>) =>{
     e.preventDefault()
-    try{
-        const rawResponse = await fetch(`${process.env.REACT_APP_PUBLIC_URL_API}/auth/login`, {
+   
+         fetch(`${process.env.REACT_APP_PUBLIC_URL_API}/auth/login`, {
             method: 'POST',
-            mode: 'no-cors',
+            mode: 'cors',
             headers: {
               'Accept': 'application/json',
               'Content-Type': 'application/json'
             },
-            body: JSON.stringify(loginForm)
-          });
-          
-          const content = await rawResponse.json();
-          console.log(content)
-          if(rawResponse.ok){
-         
-          setAccessToken(content.accessToken)
-          navigate('/logged/home')
-            }
-        else{
-            setLoginForm({...loginForm, errorMessage:content.message})
-            throw new Error(content.message)
-           }
-        }
-        catch(err){
-            console.log(err)
-            navigate('/')
-        }
-        }
-
+            body: JSON.stringify(loginForm),
+          }).then(res => res.json())
+            .then((res) =>{setAccessToken(res.accessToken);
+              console.log(res)
+             navigate('/logged/home')} )
+            .catch((err)=>{setLoginForm({...loginForm, errorMessage:err.message});})
+      }
 
 const handleSignup = async (e:React.MouseEvent<HTMLButtonElement, MouseEvent>) =>{
             e.preventDefault()

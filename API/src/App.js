@@ -2,7 +2,7 @@
 require('dotenv').config()
 
 const express = require('express')
-
+const cors = require('cors')
 const app = express()
 
 const port = process.env.PORT
@@ -16,7 +16,7 @@ const { initUserModule } = require('./module/user/module')
 // DIcontainer initialization
 
   const container = ConfigureDIC()
-
+app.use(cors())
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
