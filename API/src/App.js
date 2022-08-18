@@ -26,7 +26,7 @@ app.use(express.json());
   initRecordModule(app,container)
   initUserModule(app,container)
 
-
+app.get('/test', (req,res)=>{ res.json({ok: 'is ok'})})
 app.use(function (err,req,res,next){
  
   res.status(500)

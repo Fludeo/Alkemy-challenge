@@ -34,7 +34,7 @@ const closeSignupModal= () =>{
 const handleLogin = async (e:React.MouseEvent<HTMLButtonElement, MouseEvent>) =>{
     e.preventDefault()
     try{
-        const rawResponse = await fetch('/auth/login', {
+        const rawResponse = await fetch('https://accounting-app-backend.up.railway.app/auth/login', {
             method: 'POST',
             headers: {
               'Accept': 'application/json',
