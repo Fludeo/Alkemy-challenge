@@ -21,16 +21,16 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 // Routes initialization 
-
+app.get('/test', (req,res)=>{ res.json({ok: 'is ok'})})
   initAuthModule(app,container)
   initRecordModule(app,container)
   initUserModule(app,container)
 
-app.get('/test', (req,res)=>{ res.json({ok: 'is ok'})})
+
 app.use(function (err,req,res,next){
  
-  res.status(500)
-  res.json({message:err.message})
+  res.status(400)
+  res.json(err)
 
 })
 

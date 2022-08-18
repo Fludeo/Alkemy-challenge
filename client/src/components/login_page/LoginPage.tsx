@@ -34,16 +34,20 @@ const closeSignupModal= () =>{
 const handleLogin = async (e:React.MouseEvent<HTMLButtonElement, MouseEvent>) =>{
     e.preventDefault()
     try{
-        const rawResponse = await fetch('https://accounting-app-backend.up.railway.app/auth/login', {
+        const rawResponse = await fetch(`${process.env.REACT_APP_PUBLIC_URL_API}/auth/login`, {
             method: 'POST',
+            mode: 'no-cors',
             headers: {
               'Accept': 'application/json',
               'Content-Type': 'application/json'
             },
             body: JSON.stringify(loginForm)
           });
+          
           const content = await rawResponse.json();
+          console.log(content)
           if(rawResponse.ok){
+         
           setAccessToken(content.accessToken)
           navigate('/logged/home')
             }
@@ -66,8 +70,9 @@ const handleSignup = async (e:React.MouseEvent<HTMLButtonElement, MouseEvent>) =
               return
             }
             try{
-                const rawResponse = await fetch('/user/signup', {
+                const rawResponse = await fetch(`${process.env.REACT_APP_PUBLIC_URL_API}/user/signup`, {
                     method: 'POST',
+                    mode: 'no-cors',
                     headers: {
                       'Accept': 'application/json',
                       'Content-Type': 'application/json'
