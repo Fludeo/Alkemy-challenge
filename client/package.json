@@ -1,4 +1,5 @@
 {
+  "homepage": "https://fludeo.github.io/Alkemy_challenge",
   "name": "client",
   "version": "0.1.0",
   "private": true,
@@ -11,6 +12,7 @@
     "@types/react": "^18.0.8",
     "@types/react-dom": "^18.0.0",
     "dotenv": "^16.0.1",
+    "gh-pages": "^4.0.0",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "react-icons": "^4.3.1",
@@ -22,6 +24,8 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
